@@ -19,11 +19,12 @@
       --primary: #ffffff;
       --primary-dark: #e2e8f0;
       --accent-pink: #fe2c55;
+      --accent-rose: #ff758c;
       --accent-gold: #fcee0a;
       --bg-dark: #000000;
-      --card-bg: rgba(14, 14, 18, 0.42);
-      --card-item-bg: rgba(22, 22, 30, 0.48);
-      --border-subtle: rgba(255, 255, 255, 0.22);
+      --card-bg: rgba(12, 14, 22, 0.45);
+      --card-item-bg: rgba(20, 22, 34, 0.52);
+      --border-subtle: rgba(255, 255, 255, 0.18);
     }
 
     * {
@@ -63,19 +64,17 @@
       .bg-video { object-position: 70% center; }
     }
 
-    /* Lớp phủ sáng trong suốt, không bị đen ngòm */
     .bg-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.38);
+      background: rgba(0, 0, 0, 0.32);
       z-index: -1;
       pointer-events: none;
     }
 
-    /* Đốm sáng trắng nhẹ tạo chiều sâu cho nền */
     .ambient-glow-white {
       position: fixed;
       top: 15%;
@@ -83,7 +82,7 @@
       transform: translateX(-50%);
       width: 600px;
       height: 380px;
-      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+      background: radial-gradient(ellipse at center, rgba(254, 44, 85, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
       pointer-events: none;
       z-index: -1;
     }
@@ -135,11 +134,6 @@
       user-select: none;
     }
 
-    @media (min-width: 768px) {
-      .chibi-sitter-left { top: -72px; left: 20px; width: 120px; }
-      .chibi-sitter-right { top: -68px; right: 20px; width: 105px; }
-    }
-
     @keyframes chibiBounceLeft {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-4px); }
@@ -150,50 +144,46 @@
       50% { transform: translateY(-4px); }
     }
 
-    /* Glowing card wrapper - Chuẩn viền Trắng / Bạc gốc xoay nhẹ */
+    /* Viền Neon Đỏ - Trắng - Hồng chuẩn: Dùng Animated Gradient Border an toàn tuyệt đối, không bị văng vệt cắt */
     .card-border-wrapper {
       position: relative;
       width: 100%;
       border-radius: 28px;
-      padding: 2px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: transparent;
-      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.55), 0 0 25px rgba(255, 255, 255, 0.12);
+      padding: 2.5px;
+      background: linear-gradient(135deg, #fe2c55, #ffffff, #ff758c, #ffffff, #fe2c55);
+      background-size: 300% 300%;
+      animation: neonFlowBorder 4s ease infinite;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.65), 
+                  0 0 20px rgba(254, 44, 85, 0.45), 
+                  0 0 35px rgba(255, 117, 140, 0.3);
+      overflow: hidden;
     }
 
-    .card-border-wrapper::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 28px;
-      padding: 2px;
-      background: conic-gradient(from 0deg, #ffffff, rgba(255,255,255,0.2), #ffffff, rgba(255,255,255,0.4), #ffffff);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      animation: spinBorder 6s linear infinite;
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    @keyframes spinBorder {
-      0% { filter: brightness(1); }
-      50% { filter: brightness(1.3); }
-      100% { filter: brightness(1); }
+    @keyframes neonFlowBorder {
+      0% {
+        background-position: 0% 50%;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.65), 0 0 22px rgba(254, 44, 85, 0.55), 0 0 35px rgba(255, 117, 140, 0.35);
+      }
+      50% {
+        background-position: 100% 50%;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.65), 0 0 30px rgba(255, 117, 140, 0.7), 0 0 45px rgba(255, 255, 255, 0.45);
+      }
+      100% {
+        background-position: 0% 50%;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.65), 0 0 22px rgba(254, 44, 85, 0.55), 0 0 35px rgba(255, 117, 140, 0.35);
+      }
     }
 
     .card {
       position: relative;
       width: 100%;
       background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border-radius: 26px;
       padding: 24px 16px;
       z-index: 1;
-      border: 1px solid var(--border-subtle);
+      border: 1px solid rgba(255, 255, 255, 0.12);
     }
 
     @media (min-width: 768px) {
@@ -212,7 +202,7 @@
       font-size: 0.76rem;
       font-weight: 700;
       color: #ffffff;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.3);
       padding: 5px 14px;
       border-radius: 20px;
@@ -249,7 +239,7 @@
       line-height: 1.45;
     }
 
-    /* Ô tìm kiếm màu Trắng Tinh Tế */
+    /* Vault Search Box */
     .vault-search-box {
       width: 100%;
       position: relative;
@@ -259,27 +249,21 @@
     .vault-search-box input {
       width: 100%;
       padding: 12px 42px;
-      background: rgba(15, 15, 20, 0.38);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(15, 15, 22, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       border-radius: 14px;
       color: #fff;
       font-size: 0.92rem;
       outline: none;
       transition: all 0.25s ease;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
     .vault-search-box input:focus {
-      border-color: #ffffff;
-      box-shadow: 0 0 14px rgba(255, 255, 255, 0.35);
-      background: rgba(20, 20, 26, 0.55);
-    }
-
-    .vault-search-box input:focus {
-      border-color: #ffffff;
-      box-shadow: 0 0 14px rgba(255, 255, 255, 0.35);
-      background: rgba(22, 22, 28, 0.95);
+      border-color: #fe2c55;
+      box-shadow: 0 0 14px rgba(254, 44, 85, 0.45);
+      background: rgba(20, 20, 30, 0.6);
     }
 
     .vault-search-box i.search-icon {
@@ -309,7 +293,7 @@
       cursor: pointer;
     }
 
-    /* Filter Chips - Màu Trắng Đen Sang Trọng */
+    /* Filter Chips */
     .filter-chips {
       display: flex;
       gap: 8px;
@@ -350,7 +334,7 @@
       box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
     }
 
-    /* Khung nạp thẻ (Cards) */
+    /* Grid layout */
     .wuwa-grid-layout {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -373,9 +357,9 @@
     .wuwa-shop-card {
       position: relative;
       background: var(--card-item-bg);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1.5px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
       border-radius: 18px;
       padding: 14px 12px;
       display: flex;
@@ -385,20 +369,20 @@
       cursor: pointer;
       user-select: none;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
     }
 
     .wuwa-shop-card:hover {
-      background: rgba(45, 45, 58, 0.62);
-      border-color: #ffffff;
+      background: rgba(35, 38, 55, 0.68);
+      border-color: #ff758c;
       transform: translateY(-4px);
-      box-shadow: 0 10px 24px rgba(255, 255, 255, 0.18);
+      box-shadow: 0 10px 24px rgba(254, 44, 85, 0.35);
     }
 
     .wuwa-shop-card.selected {
-      border-color: #ffffff;
-      background: rgba(255, 255, 255, 0.22);
-      box-shadow: 0 0 0 1.5px #ffffff, 0 8px 24px rgba(255, 255, 255, 0.3);
+      border-color: #fe2c55;
+      background: rgba(254, 44, 85, 0.22);
+      box-shadow: 0 0 0 1.5px #fe2c55, 0 8px 25px rgba(254, 44, 85, 0.5);
       transform: translateY(-2px);
     }
 
@@ -409,13 +393,13 @@
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: #ffffff;
-      color: #000000;
+      background: linear-gradient(135deg, #fe2c55, #ff758c);
+      color: #ffffff;
       display: none;
       align-items: center;
       justify-content: center;
       font-size: 0.78rem;
-      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.6);
+      box-shadow: 0 2px 10px rgba(254, 44, 85, 0.8);
       z-index: 5;
     }
 
@@ -423,7 +407,7 @@
       display: flex;
     }
 
-    /* Tag Tag Nhãn ưu đãi */
+    /* Tag Nhãn */
     .wuwa-tag-pill {
       position: absolute;
       top: 10px;
@@ -453,7 +437,6 @@
       color: #fcee0a;
     }
 
-    /* Khung ảnh / Icon Tinh Thể Sáng Bạc & Trắng */
     .wuwa-item-img-wrap {
       width: 100%;
       height: 120px;
@@ -462,21 +445,10 @@
       justify-content: center;
       margin-bottom: 10px;
       border-radius: 14px;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.25) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, rgba(0, 0, 0, 0.22) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       overflow: hidden;
       position: relative;
-    }
-
-    .wuwa-item-icon {
-      font-size: 3.2rem;
-      color: #ffffff;
-      filter: drop-shadow(0 4px 14px rgba(255, 255, 255, 0.6));
-      transition: transform 0.25s ease;
-    }
-
-    .wuwa-shop-card:hover .wuwa-item-icon {
-      transform: scale(1.1) rotate(4deg);
     }
 
     .wuwa-item-meta {
@@ -505,7 +477,7 @@
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
     }
 
-    /* Skeleton Loading UI */
+    /* Skeleton Loading */
     .skeleton-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -653,7 +625,7 @@
 
     .btn-wuwa-checkout:active { transform: scale(0.96); }
 
-    /* Floating Support Trigger */
+    /* Floating CSKH Button */
     .floating-cskh-btn {
       position: fixed;
       bottom: 24px;
@@ -1221,9 +1193,9 @@
       </div>
     </div>
 
-    <form class="cskh-footer" onsubmit="handleSendCskhMessage(event)">
+    <form class="cskh-footer" id="cskhForm" onsubmit="handleSendCskhMessage(event)">
       <input type="text" id="cskhInputText" placeholder="Nhập tin nhắn hỗ trợ..." autocomplete="off">
-      <button type="submit" class="btn-send-cskh">
+      <button type="submit" id="cskhSendBtn" class="btn-send-cskh">
         <i class="fa-solid fa-paper-plane"></i>
       </button>
     </form>
@@ -1311,7 +1283,7 @@
     const TIKTOK_USERNAME = 'phalnnn';
     const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1556846947611054181/5r1jFTCmgmv-gFv3_TJYnZVNuBHor2Pf22HbZjBpZclmyKEQp1dkpYhKKVlUAJ4vMEH7';
 
-    // Rich default mock packages
+    // Packages fallback
     const DEFAULT_WUWA_PACKAGES = [
       { id: 'wuwa_1', rawId: 1, title: 'Thẻ Tháng Lunite Subscription (30 Ngày)', price: 99000, tag: 'HOT', iconType: 'moon' },
       { id: 'wuwa_2', rawId: 2, title: 'Gói 60 Lunite + Thưởng x2 lần đầu', price: 23000, tag: 'Tặng x2', iconType: 'crystal-small' },
@@ -1341,6 +1313,9 @@
 
     let chatPollingTimer = null;
     let lastChatTimestamp = null;
+    // Mảng quản lý tin nhắn tập trung để triệt tiêu 100% việc trùng lặp
+    let chatMessagesStore = [];
+    let isSendingMessage = false; // Cờ khóa chặn gửi đúp / double trigger
 
     function showToast(text) {
       const toast = document.getElementById('toast');
@@ -1472,7 +1447,6 @@
       renderGrid(list);
     }
 
-    // Helper tạo vector SVG biểu tượng Tinh Thể Trắng & Bạc sáng lấp lánh
     function getPackageSvgIcon(type) {
       if (type === 'moon') {
         return `
@@ -1504,7 +1478,6 @@
           </svg>
         `;
       }
-      // Crystal icon mặc định
       return `
         <svg width="70" height="70" viewBox="0 0 64 64" fill="none" style="filter: drop-shadow(0 0 14px rgba(255,255,255,0.85));">
           <polygon points="32,6 52,22 44,56 20,56 12,22" fill="url(#crystGrad)" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
@@ -1543,7 +1516,6 @@
         const card = document.createElement('div');
         card.className = `wuwa-shop-card ${isSelected ? 'selected' : ''}`;
         
-        // Icon hoặc ảnh
         let imgContent = '';
         if (item.image && item.image !== 'avatar.jpg') {
           imgContent = `<img src="${item.image}" alt="${item.title}" style="max-width:90%; max-height:90%; object-fit:contain;" onerror="this.parentElement.innerHTML=getPackageSvgIcon('${item.iconType || 'crystal'}');" />`;
@@ -1745,37 +1717,75 @@
       }
     }
 
-    async function loadChatHistory() {
+    function renderAllMessages() {
       const body = document.getElementById('cskhChatBody');
-      body.innerHTML = `
-        <div class="chat-bubble admin">
-          Chào bạn 💗 Cảm ơn bạn đã ghé shop. Nếu cần hỏi gói nạp hay hỗ trợ nạp ID in-game, bạn cứ nhắn mình ở đây nhé!
-        </div>
-      `;
+      body.replaceChildren();
 
-      if (!_supabase) return;
+      // Tin nhắn chào mừng ban đầu
+      const welcomeBubble = document.createElement('div');
+      welcomeBubble.className = 'chat-bubble admin';
+      welcomeBubble.textContent = 'Chào bạn 💗 Cảm ơn bạn đã ghé shop. Nếu cần hỏi gói nạp hay hỗ trợ nạp ID in-game, bạn cứ nhắn mình ở đây nhé!';
+      body.appendChild(welcomeBubble);
+
+      chatMessagesStore.forEach(msg => {
+        const bubble = document.createElement('div');
+        bubble.className = `chat-bubble ${msg.sender}`;
+        const timeStr = msg.created_at ? new Date(msg.created_at).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) : '';
+        bubble.innerHTML = `<div>${msg.content}</div><div class="chat-bubble-time">${timeStr}</div>`;
+        body.appendChild(bubble);
+      });
+
+      body.scrollTop = body.scrollHeight;
+    }
+
+    async function loadChatHistory() {
+      if (!_supabase) {
+        renderAllMessages();
+        return;
+      }
       try {
         const { data, error } = await _supabase
           .from('chat_messages')
-          .select('sender, content, created_at')
+          .select('id, sender, content, created_at')
           .eq('session_id', chatSessionId)
           .order('created_at', { ascending: true });
 
         if (!error && data) {
-          data.forEach(msg => appendMessageUI(msg.sender, msg.content, msg.created_at));
+          // Lọc thông minh: Loại bỏ tin bot nhại lại (echo) của user & loại bỏ tin trùng lặp
+          const cleanList = [];
+          data.forEach(msg => {
+            // 1. Chỉ chặn bot echo nhại lại tin user trong vòng 4 giây đầu
+            const isBotEcho = msg.sender === 'admin' && cleanList.some(prev => 
+              prev.sender === 'user' && 
+              prev.content.trim() === msg.content.trim() &&
+              Math.abs(new Date(msg.created_at) - new Date(prev.created_at)) < 4000
+            );
+
+            // 2. Chặn tin nhắn trùng lặp hoàn toàn
+            const isDuplicate = cleanList.some(prev => 
+              prev.id === msg.id || 
+              (prev.sender === msg.sender && prev.content.trim() === msg.content.trim() && Math.abs(new Date(msg.created_at) - new Date(prev.created_at)) < 2500)
+            );
+
+            if (!isBotEcho && !isDuplicate) {
+              cleanList.push(msg);
+            }
+          });
+
+          chatMessagesStore = cleanList;
           if (data.length > 0) {
             lastChatTimestamp = data[data.length - 1].created_at;
           }
-          body.scrollTop = body.scrollHeight;
         }
       } catch (e) {
         console.warn("Lỗi tải chat:", e);
       }
+      renderAllMessages();
     }
 
     function startChatPolling() {
       stopChatPolling();
-      chatPollingTimer = setInterval(pollNewAdminMessages, 4000);
+      chatPollingTimer = setInterval(pollNewAdminMessages, 3000);
     }
 
     function stopChatPolling() {
@@ -1790,7 +1800,7 @@
       try {
         let query = _supabase
           .from('chat_messages')
-          .select('sender, content, created_at')
+          .select('id, sender, content, created_at')
           .eq('session_id', chatSessionId)
           .eq('sender', 'admin')
           .order('created_at', { ascending: true });
@@ -1801,50 +1811,119 @@
 
         const { data, error } = await query;
         if (!error && data && data.length > 0) {
+          let hasNew = false;
           data.forEach(msg => {
-            appendMessageUI('admin', msg.content, msg.created_at);
+            // Chỉ chặn nếu bot nhại lại tin user trong vòng 4 giây
+            const isBotEcho = chatMessagesStore.some(prev => 
+              prev.sender === 'user' && 
+              prev.content.trim() === msg.content.trim() &&
+              Math.abs(new Date(msg.created_at) - new Date(prev.created_at)) < 4000
+            );
+
+            const isDuplicate = chatMessagesStore.some(prev => 
+              prev.id === msg.id || 
+              (prev.sender === msg.sender && prev.content.trim() === msg.content.trim() && Math.abs(new Date(msg.created_at) - new Date(prev.created_at)) < 2500)
+            );
+
+            if (!isBotEcho && !isDuplicate) {
+              chatMessagesStore.push(msg);
+              hasNew = true;
+            }
             lastChatTimestamp = msg.created_at;
           });
+          if (hasNew) {
+            renderAllMessages();
+          }
         }
       } catch (err) {
-        // Safe polling drop
+        // Safe drop
       }
     }
 
-    function appendMessageUI(sender, text, timestamp) {
-      const body = document.getElementById('cskhChatBody');
-      const bubble = document.createElement('div');
-      bubble.className = `chat-bubble ${sender}`;
-      const timeStr = timestamp ? new Date(timestamp).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) : '';
-      bubble.innerHTML = `<div>${text}</div><div class="chat-bubble-time">${timeStr}</div>`;
-      body.appendChild(bubble);
-      body.scrollTop = body.scrollHeight;
-    }
-
     async function handleSendCskhMessage(e) {
-      e.preventDefault();
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      // Khóa ngay lập tức nếu đang gửi dở, ngăn chặn triệt để double-fire
+      if (isSendingMessage) return;
+
       const input = document.getElementById('cskhInputText');
       const text = input.value.trim();
       if (!text) return;
 
+      isSendingMessage = true;
       input.value = '';
-      appendMessageUI('user', text, new Date());
+      input.blur(); // Tránh gõ đè
 
-      setTimeout(() => {
-        appendMessageUI('admin', 'Dạ Chía đã nhận tin nhắn của bạn rồi ạ! Bạn kiểm tra TikTok hoặc đợi shop một lát nhé 💗', new Date());
-      }, 1200);
+      const clientTempId = 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+      const nowIso = new Date().toISOString();
 
-      if (_supabase) {
-        try {
-          await _supabase.from('chat_messages').insert({
-            session_id: chatSessionId,
-            sender: 'user',
-            content: text
-          });
-        } catch (err) {
-          console.error("Lỗi Supabase:", err);
+      // Kiểm tra lần cuối trong store xem có tin nhắn y hệt vừa thêm cách đây 1.5 giây không
+      const isDuplicate = chatMessagesStore.some(m => m.sender === 'user' && m.content === text && (Date.now() - new Date(m.created_at).getTime()) < 1500);
+      
+      if (!isDuplicate) {
+        const localMsg = {
+          id: clientTempId,
+          sender: 'user',
+          content: text,
+          created_at: nowIso
+        };
+        chatMessagesStore.push(localMsg);
+        renderAllMessages();
+
+        // 1. Lưu tin nhắn vào Supabase
+        if (_supabase) {
+          try {
+            const { data } = await _supabase.from('chat_messages').insert({
+              session_id: chatSessionId,
+              sender: 'user',
+              content: text
+            }).select('id, created_at').single();
+
+            if (data) {
+              localMsg.id = data.id;
+              localMsg.created_at = data.created_at;
+            }
+          } catch (err) {
+            console.error("Lỗi Supabase:", err);
+          }
+        }
+
+        // 2. Gửi Webhook Discord
+        if (DISCORD_WEBHOOK_URL && !DISCORD_WEBHOOK_URL.includes('YOUR_WEBHOOK')) {
+          try {
+            await fetch(DISCORD_WEBHOOK_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                username: 'Hỗ Trợ Khách Nạp WuWa',
+                avatar_url: 'https://cdn-icons-png.flaticon.com/512/847/847969.png',
+                embeds: [{
+                  title: '💬 Khách nhắn tin hỗ trợ CSKH mới!',
+                  color: 0xfe2c55,
+                  fields: [
+                    { name: 'Mã khách (Session)', value: `\`${chatSessionId}\``, inline: true },
+                    { name: 'Thời gian', value: new Date().toLocaleTimeString('vi-VN'), inline: true },
+                    { name: 'Nội dung tin nhắn', value: text }
+                  ],
+                  footer: { text: 'Bảng Giá Nạp Game WuWa - Chía 💗' },
+                  timestamp: new Date().toISOString()
+                }]
+              })
+            });
+          } catch (webhookErr) {
+            console.warn("Lỗi gửi Discord Webhook:", webhookErr);
+          }
         }
       }
+
+      // Mở khóa sau 600ms
+      setTimeout(() => {
+        isSendingMessage = false;
+        input.focus();
+      }, 600);
     }
 
     async function writeClipboardText(text) {
