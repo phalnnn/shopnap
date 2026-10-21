@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Bảng Giá Nạp Game Wuthering Waves 💗</title>
+  <link rel="icon" href="avatar.jpg" type="image/jpeg">
 
-  <!-- Google Fonts & Icon Libraries -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <!-- Supabase CDN Client -->
@@ -16,13 +16,14 @@
 
   <style>
     :root {
-      --primary: #00f0ff;
-      --primary-dark: #0099ff;
+      --primary: #ffffff;
+      --primary-dark: #e2e8f0;
       --accent-pink: #fe2c55;
       --accent-gold: #fcee0a;
-      --bg-dark: #090a10;
-      --card-bg: rgba(22, 25, 38, 0.72);
-      --border-subtle: rgba(0, 240, 255, 0.18);
+      --bg-dark: #000000;
+      --card-bg: rgba(18, 18, 22, 0.78);
+      --card-item-bg: rgba(28, 28, 35, 0.82);
+      --border-subtle: rgba(255, 255, 255, 0.18);
     }
 
     * {
@@ -38,7 +39,7 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding: 55px 14px 115px;
+      padding: 55px 14px 120px;
       background: #000;
       overflow-x: hidden;
       color: #ffffff;
@@ -62,15 +63,29 @@
       .bg-video { object-position: 70% center; }
     }
 
+    /* Lớp phủ sáng trong suốt, không bị đen ngòm */
     .bg-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: radial-gradient(circle at 50% 20%, rgba(10, 14, 26, 0.6) 0%, rgba(0, 0, 0, 0.82) 80%);
+      background: rgba(0, 0, 0, 0.38);
       z-index: -1;
       pointer-events: none;
+    }
+
+    /* Đốm sáng trắng nhẹ tạo chiều sâu cho nền */
+    .ambient-glow-white {
+      position: fixed;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 380px;
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+      pointer-events: none;
+      z-index: -1;
     }
 
     .container {
@@ -86,14 +101,14 @@
 
     @media (min-width: 768px) {
       .container { max-width: 860px; }
-      body { padding: 65px 20px 100px; }
+      body { padding: 65px 20px 105px; }
     }
 
     @media (min-width: 1100px) {
       .container { max-width: 1120px; }
     }
 
-    /* Floating cute mascots */
+    /* Floating mascots */
     .chibi-sitter-left {
       position: absolute;
       top: -55px;
@@ -102,7 +117,7 @@
       height: auto;
       z-index: 10;
       pointer-events: none;
-      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.7));
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.8));
       animation: chibiBounceLeft 3.5s ease-in-out infinite;
       user-select: none;
     }
@@ -115,7 +130,7 @@
       height: auto;
       z-index: 10;
       pointer-events: none;
-      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.7));
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.8));
       animation: chibiBounceRight 3.5s ease-in-out infinite 0.6s;
       user-select: none;
     }
@@ -135,7 +150,7 @@
       50% { transform: translateY(-4px); }
     }
 
-    /* Glowing card wrapper */
+    /* Glowing card wrapper - Chuẩn viền Trắng / Bạc gốc xoay nhẹ */
     .card-border-wrapper {
       position: relative;
       width: 100%;
@@ -145,7 +160,7 @@
       justify-content: center;
       align-items: center;
       background: transparent;
-      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.75), 0 0 25px rgba(0, 240, 255, 0.25);
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.75), 0 0 25px rgba(255, 255, 255, 0.12);
     }
 
     .card-border-wrapper::before {
@@ -154,7 +169,7 @@
       inset: 0;
       border-radius: 28px;
       padding: 2px;
-      background: conic-gradient(from 0deg, #00f0ff, #ffffff, #0077ff, #00f0ff);
+      background: conic-gradient(from 0deg, #ffffff, rgba(255,255,255,0.2), #ffffff, rgba(255,255,255,0.4), #ffffff);
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
@@ -164,15 +179,17 @@
     }
 
     @keyframes spinBorder {
-      100% { filter: hue-rotate(360deg); }
+      0% { filter: brightness(1); }
+      50% { filter: brightness(1.3); }
+      100% { filter: brightness(1); }
     }
 
     .card {
       position: relative;
       width: 100%;
       background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border-radius: 26px;
       padding: 24px 16px;
       z-index: 1;
@@ -194,41 +211,45 @@
       gap: 6px;
       font-size: 0.76rem;
       font-weight: 700;
-      color: #00f0ff;
-      background: rgba(0, 240, 255, 0.12);
-      border: 1px solid rgba(0, 240, 255, 0.3);
-      padding: 4px 12px;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 5px 14px;
       border-radius: 20px;
-      margin-bottom: 10px;
-      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      letter-spacing: 0.6px;
       text-transform: uppercase;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     .card-header-main h1 {
-      font-size: 1.32rem;
+      font-size: 1.38rem;
       font-weight: 800;
       color: #ffffff;
-      text-shadow: 0 0 16px rgba(0, 240, 255, 0.5);
+      text-shadow: 0 0 14px rgba(255, 255, 255, 0.5);
       line-height: 1.35;
       letter-spacing: -0.2px;
     }
 
     .card-header-main h1 span {
-      color: #00f0ff;
+      color: #ffffff;
+      text-decoration: underline;
+      text-decoration-color: rgba(255, 255, 255, 0.4);
+      text-underline-offset: 4px;
     }
 
     @media (min-width: 768px) {
-      .card-header-main h1 { font-size: 1.6rem; }
+      .card-header-main h1 { font-size: 1.65rem; }
     }
 
     .card-header-main p {
-      font-size: 0.85rem;
-      color: #cbd5e1;
+      font-size: 0.86rem;
+      color: #e2e8f0;
       margin-top: 6px;
       line-height: 1.45;
     }
 
-    /* Search Input */
+    /* Ô tìm kiếm màu Trắng Tinh Tế */
     .vault-search-box {
       width: 100%;
       position: relative;
@@ -238,8 +259,8 @@
     .vault-search-box input {
       width: 100%;
       padding: 12px 42px;
-      background: rgba(12, 14, 22, 0.7);
-      border: 1px solid rgba(0, 240, 255, 0.35);
+      background: rgba(18, 18, 24, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: 14px;
       color: #fff;
       font-size: 0.92rem;
@@ -249,9 +270,9 @@
     }
 
     .vault-search-box input:focus {
-      border-color: #00f0ff;
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
-      background: rgba(12, 14, 22, 0.9);
+      border-color: #ffffff;
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.35);
+      background: rgba(22, 22, 28, 0.95);
     }
 
     .vault-search-box i.search-icon {
@@ -259,7 +280,7 @@
       left: 14px;
       top: 50%;
       transform: translateY(-50%);
-      color: #00f0ff;
+      color: #ffffff;
       font-size: 0.95rem;
     }
 
@@ -281,7 +302,7 @@
       cursor: pointer;
     }
 
-    /* Filter Chips */
+    /* Filter Chips - Màu Trắng Đen Sang Trọng */
     .filter-chips {
       display: flex;
       gap: 8px;
@@ -300,8 +321,8 @@
       flex: 0 0 auto;
       padding: 7px 16px;
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       color: #e2e8f0;
       font-size: 0.82rem;
       font-weight: 600;
@@ -310,19 +331,19 @@
     }
 
     .chip-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(0, 240, 255, 0.4);
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.4);
     }
 
     .chip-btn.active {
-      background: #00f0ff;
-      border-color: #00f0ff;
-      color: #000;
+      background: #ffffff;
+      border-color: #ffffff;
+      color: #000000;
       font-weight: 700;
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
     }
 
-    /* Product Grid */
+    /* Khung nạp thẻ (Cards) */
     .wuwa-grid-layout {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -344,8 +365,8 @@
 
     .wuwa-shop-card {
       position: relative;
-      background: rgba(22, 25, 36, 0.85);
-      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      background: var(--card-item-bg);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
       border-radius: 18px;
       padding: 14px 12px;
       display: flex;
@@ -354,21 +375,21 @@
       min-height: 230px;
       cursor: pointer;
       user-select: none;
-      transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
     }
 
     .wuwa-shop-card:hover {
-      background: rgba(30, 35, 52, 0.95);
-      border-color: #00f0ff;
+      background: rgba(40, 40, 50, 0.95);
+      border-color: #ffffff;
       transform: translateY(-4px);
-      box-shadow: 0 10px 24px rgba(0, 240, 255, 0.2);
+      box-shadow: 0 10px 24px rgba(255, 255, 255, 0.15);
     }
 
     .wuwa-shop-card.selected {
-      border-color: #00f0ff;
-      background: rgba(0, 240, 255, 0.1);
-      box-shadow: 0 0 0 1.5px #00f0ff, 0 8px 24px rgba(0, 240, 255, 0.35);
+      border-color: #ffffff;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 0 1.5px #ffffff, 0 8px 24px rgba(255, 255, 255, 0.25);
       transform: translateY(-2px);
     }
 
@@ -379,13 +400,13 @@
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: #00f0ff;
-      color: #000;
+      background: #ffffff;
+      color: #000000;
       display: none;
       align-items: center;
       justify-content: center;
       font-size: 0.78rem;
-      box-shadow: 0 2px 10px rgba(0, 240, 255, 0.8);
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.6);
       z-index: 5;
     }
 
@@ -393,6 +414,37 @@
       display: flex;
     }
 
+    /* Tag Tag Nhãn ưu đãi */
+    .wuwa-tag-pill {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 0.66rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      padding: 3px 8px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(4px);
+      z-index: 4;
+    }
+
+    .wuwa-tag-pill.tag-bonus {
+      background: rgba(254, 44, 85, 0.25);
+      border-color: #fe2c55;
+      color: #ffffff;
+    }
+
+    .wuwa-tag-pill.tag-bp {
+      background: rgba(252, 238, 10, 0.2);
+      border-color: #fcee0a;
+      color: #fcee0a;
+    }
+
+    /* Khung ảnh / Icon Tinh Thể Sáng Bạc & Trắng */
     .wuwa-item-img-wrap {
       width: 100%;
       height: 120px;
@@ -400,16 +452,17 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 10px;
-      border-radius: 12px;
-      background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, rgba(0,0,0,0.3) 100%);
+      border-radius: 14px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0.4) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       overflow: hidden;
       position: relative;
     }
 
     .wuwa-item-icon {
       font-size: 3.2rem;
-      color: #00f0ff;
-      filter: drop-shadow(0 4px 12px rgba(0, 240, 255, 0.5));
+      color: #ffffff;
+      filter: drop-shadow(0 4px 14px rgba(255, 255, 255, 0.6));
       transition: transform 0.25s ease;
     }
 
@@ -436,10 +489,11 @@
     }
 
     .wuwa-item-price {
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 800;
-      color: #00f0ff;
+      color: #ffffff;
       letter-spacing: 0.3px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
     }
 
     /* Skeleton Loading UI */
@@ -456,7 +510,7 @@
     }
 
     .skeleton-card {
-      background: rgba(20, 24, 36, 0.5);
+      background: rgba(20, 20, 26, 0.5);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 18px;
       padding: 14px;
@@ -494,8 +548,8 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(12, 14, 22, 0.94);
-      border-top: 1px solid rgba(0, 240, 255, 0.3);
+      background: rgba(14, 14, 18, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       padding: 14px 20px;
@@ -524,7 +578,7 @@
     .wuwa-cart-icon-wrap {
       position: relative;
       font-size: 1.6rem;
-      color: #cbd5e1;
+      color: #ffffff;
       display: flex;
       align-items: center;
     }
@@ -533,8 +587,8 @@
       position: absolute;
       top: -8px;
       right: -10px;
-      background: #00f0ff;
-      color: #000;
+      background: #ffffff;
+      color: #000000;
       font-size: 0.72rem;
       font-weight: 800;
       width: 20px;
@@ -543,7 +597,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
     }
 
     .wuwa-cart-info {
@@ -554,21 +608,22 @@
 
     .wuwa-cart-count-text {
       font-size: 0.78rem;
-      color: #94a3b8;
+      color: #cbd5e1;
       display: flex;
       align-items: center;
       gap: 5px;
     }
 
     .wuwa-cart-total-text {
-      font-size: 1.15rem;
+      font-size: 1.18rem;
       font-weight: 800;
-      color: #00f0ff;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     }
 
     .btn-wuwa-checkout {
-      background: linear-gradient(135deg, #00f0ff, #0099ff);
-      color: #000;
+      background: linear-gradient(135deg, #ffffff, #e2e8f0);
+      color: #000000;
       border: none;
       border-radius: 14px;
       padding: 12px 24px;
@@ -578,12 +633,12 @@
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      box-shadow: 0 4px 18px rgba(0, 240, 255, 0.45);
+      box-shadow: 0 4px 18px rgba(255, 255, 255, 0.35);
       transition: all 0.2s ease;
     }
 
     .btn-wuwa-checkout:hover {
-      box-shadow: 0 6px 24px rgba(0, 240, 255, 0.65);
+      box-shadow: 0 6px 24px rgba(255, 255, 255, 0.55);
       transform: translateY(-1px);
     }
 
@@ -628,16 +683,16 @@
       max-width: 370px;
       height: 480px;
       max-height: 72vh;
-      background: rgba(16, 18, 28, 0.96);
+      background: rgba(18, 18, 24, 0.96);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(88, 101, 242, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 22px;
       z-index: 2000;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 25px rgba(88, 101, 242, 0.3);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 255, 255, 0.15);
       opacity: 0;
       visibility: hidden;
       transform: translateY(20px) scale(0.95);
@@ -651,8 +706,8 @@
     }
 
     .cskh-header {
-      background: rgba(88, 101, 242, 0.22);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       padding: 14px 16px;
       display: flex;
       justify-content: space-between;
@@ -665,7 +720,7 @@
       gap: 8px;
       font-size: 0.94rem;
       font-weight: 700;
-      color: #00f0ff;
+      color: #ffffff;
     }
 
     .cskh-online-dot {
@@ -743,15 +798,15 @@
       outline: none;
     }
 
-    .cskh-footer input:focus { border-color: #5865F2; }
+    .cskh-footer input:focus { border-color: #ffffff; }
 
     .btn-send-cskh {
-      background: #5865F2;
+      background: #ffffff;
       border: none;
       border-radius: 50%;
       width: 38px;
       height: 38px;
-      color: #fff;
+      color: #000;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -784,10 +839,10 @@
       width: 100%;
       max-width: 520px;
       max-height: 84vh;
-      background: rgba(18, 20, 32, 0.96);
+      background: rgba(18, 18, 24, 0.97);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(0, 240, 255, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.35);
       border-bottom: none;
       border-radius: 24px 24px 0 0;
       padding: 18px 20px 28px;
@@ -804,7 +859,7 @@
     @media (min-width: 768px) {
       .cart-drawer-overlay { align-items: center; }
       .cart-drawer {
-        border-bottom: 1px solid rgba(0, 240, 255, 0.4);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.35);
         border-radius: 24px;
         transform: scale(0.92);
       }
@@ -821,7 +876,7 @@
 
     .cart-header h3 {
       font-size: 1.15rem;
-      color: #00f0ff;
+      color: #ffffff;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -875,11 +930,11 @@
       width: 44px;
       height: 44px;
       border-radius: 10px;
-      background: rgba(0, 240, 255, 0.12);
+      background: rgba(255, 255, 255, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #00f0ff;
+      color: #ffffff;
       font-size: 1.3rem;
       flex-shrink: 0;
     }
@@ -892,7 +947,7 @@
     .cart-item-title {
       font-size: 0.92rem;
       font-weight: 700;
-      color: #00f0ff;
+      color: #ffffff;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -934,8 +989,8 @@
     .cart-total-price {
       font-size: 1.25rem;
       font-weight: 800;
-      color: #00f0ff;
-      text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+      color: #ffffff;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
     }
 
     /* Redirect Modal */
@@ -963,12 +1018,12 @@
     .order-modal-card {
       width: 100%;
       max-width: 450px;
-      background: rgba(18, 20, 32, 0.98);
-      border: 1.5px solid #00f0ff;
+      background: rgba(18, 18, 24, 0.98);
+      border: 1.5px solid #ffffff;
       border-radius: 24px;
       padding: 26px 22px;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 240, 255, 0.35);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), 0 0 30px rgba(255, 255, 255, 0.25);
       transform: scale(0.9);
       transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -977,7 +1032,7 @@
 
     .order-modal-icon {
       font-size: 2.8rem;
-      color: #00f0ff;
+      color: #ffffff;
       margin-bottom: 12px;
       animation: pulseIcon 1.6s infinite;
     }
@@ -990,14 +1045,14 @@
     .order-modal-title {
       font-size: 1.24rem;
       font-weight: 800;
-      color: #00f0ff;
-      text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+      color: #ffffff;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
       margin-bottom: 12px;
     }
 
     .order-modal-box {
-      background: rgba(0, 240, 255, 0.08);
-      border: 1px dashed rgba(0, 240, 255, 0.45);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px dashed rgba(255, 255, 255, 0.35);
       border-radius: 14px;
       padding: 14px;
       margin: 14px 0 18px;
@@ -1020,7 +1075,7 @@
     .btn-goto-tiktok {
       width: 100%;
       padding: 13px;
-      background: linear-gradient(135deg, #00f0ff, #0099ff);
+      background: linear-gradient(135deg, #ffffff, #e2e8f0);
       border: none;
       border-radius: 14px;
       color: #000;
@@ -1031,7 +1086,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 6px 20px rgba(0, 240, 255, 0.5);
+      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
     }
 
     .btn-cancel-modal {
@@ -1049,13 +1104,13 @@
       bottom: 24px;
       left: 50%;
       transform: translateX(-50%) translateY(100px);
-      background: rgba(16, 20, 30, 0.95);
-      border: 1px solid #00f0ff;
+      background: rgba(18, 18, 24, 0.95);
+      border: 1px solid #ffffff;
       color: #fff;
       padding: 10px 20px;
       border-radius: 30px;
       font-size: 0.88rem;
-      box-shadow: 0 10px 30px rgba(0, 240, 255, 0.4);
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.25);
       z-index: 12000;
       opacity: 0;
       pointer-events: none;
@@ -1076,9 +1131,10 @@
     <source src="bg.mp4" type="video/mp4">
   </video>
   <div class="bg-overlay"></div>
+  <div class="ambient-glow-white"></div>
 
   <div class="container">
-    <!-- Playful mascot badges with images -->
+    <!-- Mascots -->
     <img src="chibi.png" alt="Chía Chibi Trái" class="chibi-sitter-left" onerror="this.style.display='none'">
     <img src="chibi-right1.png" alt="Chía Chibi Phải" class="chibi-sitter-right" onerror="this.style.display='none'">
 
@@ -1246,17 +1302,17 @@
     const TIKTOK_USERNAME = 'phalnnn';
     const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1556846947611054181/5r1jFTCmgmv-gFv3_TJYnZVNuBHor2Pf22HbZjBpZclmyKEQp1dkpYhKKVlUAJ4vMEH7';
 
-    // Rich default mock packages ensuring live visual feedback immediately
+    // Rich default mock packages
     const DEFAULT_WUWA_PACKAGES = [
-      { id: 'wuwa_1', rawId: 1, title: 'Thẻ Tháng Lunite Subscription (30 Ngày)', price: 99000, icon: 'fa-moon' },
-      { id: 'wuwa_2', rawId: 2, title: 'Gói 60 Lunite + Thưởng x2 lần đầu', price: 23000, icon: 'fa-gem' },
-      { id: 'wuwa_3', rawId: 3, title: 'Gói 300+30 Lunite (Tặng x2 lần đầu)', price: 115000, icon: 'fa-gem' },
-      { id: 'wuwa_4', rawId: 4, title: 'Gói 980+110 Lunite (Tặng x2 lần đầu)', price: 360000, icon: 'fa-cubes' },
-      { id: 'wuwa_5', rawId: 5, title: 'Gói 1980+260 Lunite (Tặng x2 lần đầu)', price: 720000, icon: 'fa-crown' },
-      { id: 'wuwa_6', rawId: 6, title: 'Gói 3280+600 Lunite (Tặng x2 lần đầu)', price: 1190000, icon: 'fa-certificate' },
-      { id: 'wuwa_7', rawId: 7, title: 'Gói 6480+1600 Lunite (Tặng x2 lần đầu)', price: 2390000, icon: 'fa-award' },
-      { id: 'wuwa_8', rawId: 8, title: 'Battle Pass Insider Channel (Thường)', price: 235000, icon: 'fa-book-bookmark' },
-      { id: 'wuwa_9', rawId: 9, title: 'Battle Pass Connoisseur Channel (Vip)', price: 470000, icon: 'fa-shield-halved' }
+      { id: 'wuwa_1', rawId: 1, title: 'Thẻ Tháng Lunite Subscription (30 Ngày)', price: 99000, tag: 'HOT', iconType: 'moon' },
+      { id: 'wuwa_2', rawId: 2, title: 'Gói 60 Lunite + Thưởng x2 lần đầu', price: 23000, tag: 'Tặng x2', iconType: 'crystal-small' },
+      { id: 'wuwa_3', rawId: 3, title: 'Gói 300+30 Lunite (Tặng x2 lần đầu)', price: 115000, tag: 'Tặng x2', iconType: 'crystal-mid' },
+      { id: 'wuwa_4', rawId: 4, title: 'Gói 980+110 Lunite (Tặng x2 lần đầu)', price: 360000, tag: 'Tặng x2', iconType: 'crystal-mid' },
+      { id: 'wuwa_5', rawId: 5, title: 'Gói 1980+260 Lunite (Tặng x2 lần đầu)', price: 720000, tag: 'Tặng x2', iconType: 'crystal-large' },
+      { id: 'wuwa_6', rawId: 6, title: 'Gói 3280+600 Lunite (Tặng x2 lần đầu)', price: 1190000, tag: 'Tặng x2', iconType: 'crystal-large' },
+      { id: 'wuwa_7', rawId: 7, title: 'Gói 6480+1600 Lunite (Tặng x2 lần đầu)', price: 2390000, tag: 'Tặng x2', iconType: 'crystal-max' },
+      { id: 'wuwa_8', rawId: 8, title: 'Battle Pass Insider Channel (Thường)', price: 235000, tag: 'Battle Pass', iconType: 'bp' },
+      { id: 'wuwa_9', rawId: 9, title: 'Battle Pass Connoisseur Channel (Vip)', price: 470000, tag: 'VIP BP', iconType: 'bp' }
     ];
 
     let _supabase = null;
@@ -1327,7 +1383,6 @@
     async function initApp() {
       loadSavedCart();
 
-      // Initialize Supabase with realtime completely turned off to avoid sandbox WebSocket errors
       if (window.supabase && typeof window.supabase.createClient === 'function') {
         try {
           _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
@@ -1370,7 +1425,8 @@
               title: String(row.title || 'Gói Nạp WuWa'),
               image: row.image || '',
               price: parseFloat(row.price) || 0,
-              icon: 'fa-gem'
+              tag: row.title && row.title.includes('x2') ? 'Tặng x2' : (row.title && row.title.includes('Thẻ') ? 'HOT' : ''),
+              iconType: 'crystal-mid'
             }));
             loadedRemote = true;
           }
@@ -1407,6 +1463,57 @@
       renderGrid(list);
     }
 
+    // Helper tạo vector SVG biểu tượng Tinh Thể Trắng & Bạc sáng lấp lánh
+    function getPackageSvgIcon(type) {
+      if (type === 'moon') {
+        return `
+          <svg width="70" height="70" viewBox="0 0 64 64" fill="none" style="filter: drop-shadow(0 0 12px rgba(255,255,255,0.8));">
+            <path d="M38 10C24.745 10 14 20.745 14 34C14 47.255 24.745 58 38 58C42.84 58 47.33 56.55 51.1 54.08C42.6 51.5 36.5 43.6 36.5 34C36.5 24.4 42.6 16.5 51.1 13.92C47.33 11.45 42.84 10 38 10Z" fill="url(#whiteGrad)" stroke="#ffffff" stroke-width="2"/>
+            <polygon points="46,24 48,18 50,24 56,26 50,28 48,34 46,28 40,26" fill="#ffffff" />
+            <defs>
+              <linearGradient id="whiteGrad" x1="14" y1="10" x2="51" y2="58" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#ffffff"/>
+                <stop offset="0.6" stop-color="#e2e8f0"/>
+                <stop offset="1" stop-color="#94a3b8"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        `;
+      }
+      if (type === 'bp') {
+        return `
+          <svg width="68" height="68" viewBox="0 0 64 64" fill="none" style="filter: drop-shadow(0 0 12px rgba(255,255,255,0.7));">
+            <path d="M32 6L48 13V29C48 42.5 41.2 49.5 32 58C22.8 49.5 16 42.5 16 29V13L32 6Z" fill="url(#bpGrad)" stroke="#ffffff" stroke-width="2"/>
+            <path d="M32 18L35.5 26.5L44.5 27.5L37.5 33.5L39.5 42.5L32 38L24.5 42.5L26.5 33.5L19.5 27.5L28.5 26.5L32 18Z" fill="#ffffff"/>
+            <defs>
+              <linearGradient id="bpGrad" x1="16" y1="6" x2="48" y2="58" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#ffffff"/>
+                <stop offset="0.7" stop-color="#cbd5e1"/>
+                <stop offset="1" stop-color="#64748b"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        `;
+      }
+      // Crystal icon mặc định
+      return `
+        <svg width="70" height="70" viewBox="0 0 64 64" fill="none" style="filter: drop-shadow(0 0 14px rgba(255,255,255,0.85));">
+          <polygon points="32,6 52,22 44,56 20,56 12,22" fill="url(#crystGrad)" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
+          <polygon points="32,6 20,22 44,22" fill="#ffffff" opacity="0.95"/>
+          <polygon points="12,22 20,22 20,56" fill="#cbd5e1" opacity="0.8"/>
+          <polygon points="44,22 52,22 44,56" fill="#94a3b8" opacity="0.9"/>
+          <polygon points="20,22 44,22 32,56" fill="#ffffff" opacity="0.75"/>
+          <defs>
+            <linearGradient id="crystGrad" x1="12" y1="6" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ffffff"/>
+              <stop offset="0.5" stop-color="#e2e8f0"/>
+              <stop offset="1" stop-color="#64748b"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      `;
+    }
+
     function renderGrid(list) {
       const gridEl = document.getElementById('wuwaGrid');
       const emptyEl = document.getElementById('wuwaEmpty');
@@ -1427,13 +1534,25 @@
         const card = document.createElement('div');
         card.className = `wuwa-shop-card ${isSelected ? 'selected' : ''}`;
         
-        const imgSrc = item.image || 'avatar.jpg';
-        const imgContent = `<img src="${imgSrc}" alt="${item.title}" style="max-width:90%; max-height:90%; object-fit:contain;" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\\'fa-solid fa-gem wuwa-item-icon\\'></i>';" />`;
+        // Icon hoặc ảnh
+        let imgContent = '';
+        if (item.image && item.image !== 'avatar.jpg') {
+          imgContent = `<img src="${item.image}" alt="${item.title}" style="max-width:90%; max-height:90%; object-fit:contain;" onerror="this.parentElement.innerHTML=getPackageSvgIcon('${item.iconType || 'crystal'}');" />`;
+        } else {
+          imgContent = getPackageSvgIcon(item.iconType || 'crystal');
+        }
+
+        let tagClass = 'wuwa-tag-pill';
+        if (item.tag === 'Tặng x2') tagClass += ' tag-bonus';
+        if (item.tag && item.tag.includes('BP')) tagClass += ' tag-bp';
+
+        const tagBadge = item.tag ? `<div class="${tagClass}">${item.tag}</div>` : '';
 
         card.innerHTML = `
           <div class="wuwa-check-badge">
             <i class="fa-solid fa-check"></i>
           </div>
+          ${tagBadge}
           <div class="wuwa-item-img-wrap">
             ${imgContent}
           </div>
@@ -1502,7 +1621,7 @@
 
         const iconBox = document.createElement('div');
         iconBox.className = 'cart-item-icon-box';
-        iconBox.innerHTML = `<i class="fa-solid ${item.icon || 'fa-gem'}"></i>`;
+        iconBox.innerHTML = `<i class="fa-solid fa-gem"></i>`;
 
         const info = document.createElement('div');
         info.className = 'cart-item-info';
@@ -1603,7 +1722,7 @@
       document.getElementById('orderNoticeModal').classList.remove('active');
     }
 
-    /* Live Chat Support Functions */
+    /* CSKH Live Chat */
     function toggleCskhModal(forceState) {
       const modal = document.getElementById('cskhChatModal');
       const isActive = forceState !== undefined ? forceState : !modal.classList.contains('active');
@@ -1647,7 +1766,6 @@
 
     function startChatPolling() {
       stopChatPolling();
-      // Safe HTTP REST polling instead of WebSocket channels
       chatPollingTimer = setInterval(pollNewAdminMessages, 4000);
     }
 
@@ -1680,33 +1798,7 @@
           });
         }
       } catch (err) {
-        // Silently handle polling drops
-      }
-    }
-
-    async function pollNewAdminMessages() {
-      if (!_supabase) return;
-      try {
-        let query = _supabase
-          .from('chat_messages')
-          .select('sender, content, created_at')
-          .eq('session_id', chatSessionId)
-          .eq('sender', 'admin')
-          .order('created_at', { ascending: true });
-
-        if (lastChatTimestamp) {
-          query = query.gt('created_at', lastChatTimestamp);
-        }
-
-        const { data, error } = await query;
-        if (!error && data && data.length > 0) {
-          data.forEach(msg => {
-            appendMessageUI('admin', msg.content, msg.created_at);
-            lastChatTimestamp = msg.created_at;
-          });
-        }
-      } catch (err) {
-        // Silent catch for polling
+        // Safe polling drop
       }
     }
 
@@ -1729,7 +1821,6 @@
       input.value = '';
       appendMessageUI('user', text, new Date());
 
-      // Auto-reply simulation for instant feedback
       setTimeout(() => {
         appendMessageUI('admin', 'Dạ Chía đã nhận tin nhắn của bạn rồi ạ! Bạn kiểm tra TikTok hoặc đợi shop một lát nhé 💗', new Date());
       }, 1200);
@@ -1747,7 +1838,6 @@
       }
     }
 
-    /* Clipboard Helper */
     async function writeClipboardText(text) {
       if (navigator.clipboard && window.isSecureContext) {
         try {
@@ -1767,7 +1857,6 @@
       document.body.removeChild(ta);
     }
 
-    /* Search & Filter handlers */
     const searchInput = document.getElementById('wuwaSearchInput');
     const searchClearBtn = document.getElementById('searchClearBtn');
 
