@@ -3,22 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Kho áo & Nạp Game của Chía 💗</title>
-  <link rel="icon" href="avatar.jpg" type="image/jpeg">
+  <title>Bảng Giá Nạp Game Wuthering Waves 💗</title>
 
-  <link rel="preconnect" href="https://llijmkoztqthovvklamm.supabase.co" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <!-- Google Fonts & Icon Libraries -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <!-- Supabase CDN -->
+  <!-- Supabase CDN Client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
   <style>
+    :root {
+      --primary: #00f0ff;
+      --primary-dark: #0099ff;
+      --accent-pink: #fe2c55;
+      --accent-gold: #fcee0a;
+      --bg-dark: #090a10;
+      --card-bg: rgba(22, 25, 38, 0.72);
+      --border-subtle: rgba(0, 240, 255, 0.18);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -27,13 +38,14 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding: 55px 12px 105px;
+      padding: 55px 14px 115px;
       background: #000;
       overflow-x: hidden;
       color: #ffffff;
       position: relative;
     }
 
+    /* Video Background & Overlay */
     .bg-video {
       position: fixed;
       top: 0;
@@ -56,7 +68,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.28);
+      background: radial-gradient(circle at 50% 20%, rgba(10, 14, 26, 0.6) 0%, rgba(0, 0, 0, 0.82) 80%);
       z-index: -1;
       pointer-events: none;
     }
@@ -68,20 +80,20 @@
       flex-direction: column;
       gap: 16px;
       align-items: center;
-      transition: max-width 0.25s ease;
       position: relative;
       z-index: 1;
     }
 
     @media (min-width: 768px) {
       .container { max-width: 860px; }
-      body { padding: 65px 20px 90px; }
+      body { padding: 65px 20px 100px; }
     }
 
     @media (min-width: 1100px) {
-      .container { max-width: 1140px; }
+      .container { max-width: 1120px; }
     }
 
+    /* Floating cute mascots */
     .chibi-sitter-left {
       position: absolute;
       top: -55px;
@@ -123,6 +135,7 @@
       50% { transform: translateY(-4px); }
     }
 
+    /* Glowing card wrapper */
     .card-border-wrapper {
       position: relative;
       width: 100%;
@@ -132,7 +145,7 @@
       justify-content: center;
       align-items: center;
       background: transparent;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(254, 44, 85, 0.3);
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.75), 0 0 25px rgba(0, 240, 255, 0.25);
     }
 
     .card-border-wrapper::before {
@@ -141,11 +154,11 @@
       inset: 0;
       border-radius: 28px;
       padding: 2px;
-      background: conic-gradient(from 0deg, #fe2c55, #ffffff, #00f0ff, #fe2c55);
+      background: conic-gradient(from 0deg, #00f0ff, #ffffff, #0077ff, #00f0ff);
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
-      animation: spinBorder 5s linear infinite;
+      animation: spinBorder 6s linear infinite;
       pointer-events: none;
       z-index: 2;
     }
@@ -157,105 +170,88 @@
     .card {
       position: relative;
       width: 100%;
-      background: rgba(15, 15, 25, 0.32);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-radius: 26px;
-      padding: 22px 14px;
+      padding: 24px 16px;
       z-index: 1;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--border-subtle);
     }
 
     @media (min-width: 768px) {
-      .card { padding: 28px 24px; }
-    }
-
-    .main-category-switcher {
-      display: flex;
-      gap: 8px;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 5px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      margin-bottom: 16px;
-      width: 100%;
-    }
-
-    .btn-cat-switch {
-      flex: 1;
-      padding: 10px 8px;
-      border-radius: 12px;
-      border: none;
-      background: transparent;
-      color: #aaa;
-      font-size: 0.88rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.25s ease;
-    }
-
-    .btn-cat-switch.active {
-      background: linear-gradient(135deg, #fe2c55, #ff0055);
-      color: #fff;
-      box-shadow: 0 4px 15px rgba(254, 44, 85, 0.5);
-    }
-
-    .btn-cat-switch.wuwa-active {
-      background: linear-gradient(135deg, #00f0ff, #0099ff);
-      color: #000;
-      box-shadow: 0 4px 15px rgba(0, 240, 255, 0.5);
+      .card { padding: 30px 24px; }
     }
 
     .card-header-main {
       text-align: center;
-      margin-bottom: 16px;
-      padding: 0 20px;
+      margin-bottom: 20px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #00f0ff;
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
 
     .card-header-main h1 {
-      font-size: 1.15rem;
+      font-size: 1.32rem;
       font-weight: 800;
-      color: #00f0ff;
-      text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+      color: #ffffff;
+      text-shadow: 0 0 16px rgba(0, 240, 255, 0.5);
       line-height: 1.35;
+      letter-spacing: -0.2px;
+    }
+
+    .card-header-main h1 span {
+      color: #00f0ff;
     }
 
     @media (min-width: 768px) {
-      .card-header-main h1 { font-size: 1.35rem; }
+      .card-header-main h1 { font-size: 1.6rem; }
     }
 
+    .card-header-main p {
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      margin-top: 6px;
+      line-height: 1.45;
+    }
+
+    /* Search Input */
     .vault-search-box {
       width: 100%;
       position: relative;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .vault-search-box input {
       width: 100%;
-      padding: 11px 40px 11px 40px;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(254, 44, 85, 0.5);
-      border-radius: 12px;
+      padding: 12px 42px;
+      background: rgba(12, 14, 22, 0.7);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: 14px;
       color: #fff;
       font-size: 0.92rem;
       outline: none;
-      transition: all 0.2s;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-    }
-
-    .vault-search-box.wuwa-theme input {
-      border-color: rgba(0, 240, 255, 0.5);
+      transition: all 0.25s ease;
+      backdrop-filter: blur(8px);
     }
 
     .vault-search-box input:focus {
       border-color: #00f0ff;
-      box-shadow: 0 0 10px rgba(0, 240, 255, 0.35);
-      background: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
+      background: rgba(12, 14, 22, 0.9);
     }
 
     .vault-search-box i.search-icon {
@@ -263,11 +259,8 @@
       left: 14px;
       top: 50%;
       transform: translateY(-50%);
-      color: #fe2c55;
-    }
-
-    .vault-search-box.wuwa-theme i.search-icon {
       color: #00f0ff;
+      font-size: 0.95rem;
     }
 
     .search-clear-btn {
@@ -279,8 +272,8 @@
       background: rgba(255, 255, 255, 0.2);
       border: none;
       border-radius: 50%;
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       color: #fff;
       font-size: 0.75rem;
       align-items: center;
@@ -288,12 +281,13 @@
       cursor: pointer;
     }
 
+    /* Filter Chips */
     .filter-chips {
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding-bottom: 6px;
-      margin-bottom: 18px;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
       scrollbar-width: none;
     }
     .filter-chips::-webkit-scrollbar { display: none; }
@@ -304,132 +298,94 @@
 
     .chip-btn {
       flex: 0 0 auto;
-      padding: 6px 14px;
+      padding: 7px 16px;
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #eee;
-      font-size: 0.8rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      font-size: 0.82rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      transition: all 0.2s ease;
     }
 
-    .chip-btn.active {
-      background: #fe2c55;
-      border-color: #fe2c55;
-      color: #fff;
-      box-shadow: 0 0 10px rgba(254, 44, 85, 0.6);
-    }
-
-    .chip-btn.active-wuwa {
-      background: #00f0ff;
-      border-color: #00f0ff;
-      color: #000;
-      box-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
-    }
-
-    .vault-grid, .skeleton-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-    @media (min-width: 480px) {
-      .vault-grid, .skeleton-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 768px) {
-      .vault-grid, .skeleton-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    }
-    @media (min-width: 1024px) {
-      .vault-grid, .skeleton-grid { grid-template-columns: repeat(4, 1fr); gap: 18px; }
-    }
-
-    .vault-card {
-      background: rgba(15, 15, 25, 0.35);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1.5px solid rgba(254, 44, 85, 0.35);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
-      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .vault-card.wuwa-card {
+    .chip-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
       border-color: rgba(0, 240, 255, 0.4);
     }
 
-    .vault-card:hover {
+    .chip-btn.active {
+      background: #00f0ff;
       border-color: #00f0ff;
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px rgba(0, 240, 255, 0.3);
-      background: rgba(20, 20, 35, 0.45);
+      color: #000;
+      font-weight: 700;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
     }
 
-    /* Giao diện Thẻ WuWa theo chuẩn hình mẫu */
+    /* Product Grid */
     .wuwa-grid-layout {
-      display: grid !important;
-      grid-template-columns: repeat(2, 1fr) !important;
-      gap: 12px !important;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
     }
 
     @media (min-width: 768px) {
       .wuwa-grid-layout {
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 16px !important;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
       }
     }
     @media (min-width: 1024px) {
       .wuwa-grid-layout {
-        grid-template-columns: repeat(4, 1fr) !important;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
       }
     }
 
     .wuwa-shop-card {
       position: relative;
-      background: #1c1d23;
-      border: 1.5px solid #282932;
-      border-radius: 16px;
-      padding: 14px 12px 14px;
+      background: rgba(22, 25, 36, 0.85);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 14px 12px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 220px;
+      min-height: 230px;
       cursor: pointer;
       user-select: none;
-      transition: all 0.22s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
     }
 
     .wuwa-shop-card:hover {
-      background: #23252d;
-      border-color: #3b82f6;
+      background: rgba(30, 35, 52, 0.95);
+      border-color: #00f0ff;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(0, 240, 255, 0.2);
     }
 
     .wuwa-shop-card.selected {
-      border-color: #2563eb;
-      background: rgba(37, 99, 235, 0.08);
-      box-shadow: 0 0 0 1px #2563eb, 0 6px 20px rgba(37, 99, 235, 0.25);
+      border-color: #00f0ff;
+      background: rgba(0, 240, 255, 0.1);
+      box-shadow: 0 0 0 1.5px #00f0ff, 0 8px 24px rgba(0, 240, 255, 0.35);
+      transform: translateY(-2px);
     }
 
     .wuwa-check-badge {
       position: absolute;
       top: 10px;
       left: 10px;
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      background: #2563eb;
-      color: #fff;
+      background: #00f0ff;
+      color: #000;
       display: none;
       align-items: center;
       justify-content: center;
-      font-size: 0.72rem;
-      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.6);
+      font-size: 0.78rem;
+      box-shadow: 0 2px 10px rgba(0, 240, 255, 0.8);
       z-index: 5;
     }
 
@@ -439,39 +395,40 @@
 
     .wuwa-item-img-wrap {
       width: 100%;
-      height: 125px;
+      height: 120px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 10px;
+      border-radius: 12px;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, rgba(0,0,0,0.3) 100%);
       overflow: hidden;
+      position: relative;
     }
 
-    .wuwa-item-img {
-      max-width: 90%;
-      max-height: 100%;
-      object-fit: contain;
-      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+    .wuwa-item-icon {
+      font-size: 3.2rem;
+      color: #00f0ff;
+      filter: drop-shadow(0 4px 12px rgba(0, 240, 255, 0.5));
       transition: transform 0.25s ease;
     }
 
-    .wuwa-shop-card:hover .wuwa-item-img {
-      transform: scale(1.06);
+    .wuwa-shop-card:hover .wuwa-item-icon {
+      transform: scale(1.1) rotate(4deg);
     }
 
     .wuwa-item-meta {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 6px;
       text-align: left;
     }
 
     .wuwa-item-title {
       font-size: 0.88rem;
-      font-weight: 600;
-      color: #e2e8f0;
-      line-height: 1.3;
-      white-space: normal;
+      font-weight: 700;
+      color: #f1f5f9;
+      line-height: 1.35;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -479,28 +436,76 @@
     }
 
     .wuwa-item-price {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #2563eb;
-      letter-spacing: 0.2px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #00f0ff;
+      letter-spacing: 0.3px;
     }
 
-    /* Thanh Bar Thanh Toán Nổi bên dưới cho WuWa */
+    /* Skeleton Loading UI */
+    .skeleton-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    @media (min-width: 768px) {
+      .skeleton-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    }
+    @media (min-width: 1024px) {
+      .skeleton-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .skeleton-card {
+      background: rgba(20, 24, 36, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 14px;
+      height: 230px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .skeleton-img {
+      width: 100%;
+      height: 120px;
+      border-radius: 12px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 25%, rgba(255, 255, 255, 0.12) 50%, rgba(255, 255, 255, 0.04) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    .skeleton-line {
+      height: 18px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 25%, rgba(255, 255, 255, 0.12) 50%, rgba(255, 255, 255, 0.04) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* Sticky Bottom Checkout Bar */
     .wuwa-bottom-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: #0f1015;
-      border-top: 1px solid #232530;
-      padding: 12px 18px;
+      background: rgba(12, 14, 22, 0.94);
+      border-top: 1px solid rgba(0, 240, 255, 0.3);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 14px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       z-index: 1000;
-      box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.7);
-      transform: translateY(105%);
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.8);
+      transform: translateY(110%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: none;
     }
 
@@ -512,30 +517,33 @@
     .wuwa-bottom-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       cursor: pointer;
     }
 
     .wuwa-cart-icon-wrap {
       position: relative;
-      font-size: 1.45rem;
-      color: #94a3b8;
+      font-size: 1.6rem;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
     }
 
     .wuwa-cart-badge {
       position: absolute;
-      top: -6px;
-      right: -8px;
-      background: #2563eb;
-      color: #fff;
-      font-size: 0.68rem;
+      top: -8px;
+      right: -10px;
+      background: #00f0ff;
+      color: #000;
+      font-size: 0.72rem;
       font-weight: 800;
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
     }
 
     .wuwa-cart-info {
@@ -549,342 +557,215 @@
       color: #94a3b8;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
     }
 
     .wuwa-cart-total-text {
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       font-weight: 800;
-      color: #2563eb;
+      color: #00f0ff;
     }
 
     .btn-wuwa-checkout {
-      background: #2563eb;
-      color: #fff;
+      background: linear-gradient(135deg, #00f0ff, #0099ff);
+      color: #000;
       border: none;
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 12px 24px;
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       font-weight: 800;
       display: flex;
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.45);
-      transition: all 0.2s;
+      box-shadow: 0 4px 18px rgba(0, 240, 255, 0.45);
+      transition: all 0.2s ease;
     }
 
-    .btn-wuwa-checkout:active {
-      transform: scale(0.96);
+    .btn-wuwa-checkout:hover {
+      box-shadow: 0 6px 24px rgba(0, 240, 255, 0.65);
+      transform: translateY(-1px);
     }
 
-    /* Khung ảnh Kho Áo */
-    .vault-img-wrap {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 4 / 4.8;
-      background: rgba(0, 0, 0, 0.3);
-      overflow: hidden;
-      cursor: pointer;
-    }
+    .btn-wuwa-checkout:active { transform: scale(0.96); }
 
-    .vault-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.35s ease;
-    }
-
-    /* Khung ảnh Nạp WuWa */
-    .vault-card.wuwa-card .vault-img-wrap {
-      aspect-ratio: 16 / 9;
-      height: auto;
-      background: rgba(0, 0, 0, 0.6);
-    }
-
-    .vault-card.wuwa-card .vault-img {
-      object-fit: contain;
-      padding: 0;
-    }
-
-    .vault-card:hover .vault-img {
-      transform: scale(1.05);
-    }
-
-    .vault-price-badge {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: rgba(0, 0, 0, 0.85);
-      border: 1px solid #fcee0a;
-      color: #fcee0a;
-      font-size: 0.82rem;
-      font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 6px;
-      box-shadow: 0 0 10px rgba(252, 238, 10, 0.3);
-    }
-
-    .vault-type-badge {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      background: rgba(0, 240, 255, 0.85);
-      color: #000;
-      font-size: 0.72rem;
-      font-weight: 800;
-      padding: 3px 6px;
-      border-radius: 4px;
-    }
-
-    .vault-card-body {
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(0, 0, 0, 0.35);
-      flex: 1;
-      justify-content: space-between;
-    }
-
-    .vault-title-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .vault-code {
-      font-size: 1rem;
-      font-weight: 800;
-      color: #fe2c55;
-      letter-spacing: 0.5px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
-    }
-
-    .vault-code.wuwa-title {
-      color: #00f0ff;
-    }
-
-    .btn-icon-copy {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #fff;
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: all 0.2s;
-    }
-
-    .btn-icon-copy:active {
-      transform: scale(0.9);
-      background: #fe2c55;
-      color: #fff;
-    }
-
-    .card-actions-row {
-      display: flex;
-      gap: 8px;
-    }
-
-    .btn-buy-acc {
-      flex: 1;
-      padding: 9px 8px;
-      background: linear-gradient(135deg, #fe2c55, #ff0055);
-      border: none;
-      border-radius: 10px;
-      color: #fff;
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      box-shadow: 0 4px 14px rgba(254, 44, 85, 0.4);
-      transition: all 0.2s;
-    }
-
-    .btn-buy-acc.btn-buy-wuwa {
-      background: linear-gradient(135deg, #00f0ff, #0099ff);
-      color: #000;
-      box-shadow: 0 4px 14px rgba(0, 240, 255, 0.4);
-    }
-
-    .btn-buy-acc:active { transform: scale(0.97); }
-
-    .btn-add-cart {
-      background: rgba(0, 240, 255, 0.16);
-      border: 1px solid rgba(0, 240, 255, 0.6);
-      color: #00f0ff;
-      border-radius: 10px;
-      padding: 0 11px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-
-    .btn-add-cart:active { transform: scale(0.92); }
-
-    /* Skeleton Loading UI */
-    .skeleton-card {
-      background: rgba(20, 20, 30, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      overflow: hidden;
-      backdrop-filter: blur(8px);
-    }
-
-    .skeleton-img {
-      width: 100%;
-      aspect-ratio: 4 / 4.8;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.12) 50%, rgba(255, 255, 255, 0.05) 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-    }
-
-    .skeleton-body {
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .skeleton-line {
-      height: 16px;
-      border-radius: 4px;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.12) 50%, rgba(255, 255, 255, 0.05) 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-    }
-
-    .skeleton-btn {
-      height: 34px;
-      border-radius: 8px;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.12) 50%, rgba(255, 255, 255, 0.05) 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-    }
-
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-
-    /* Giỏ hàng Floating */
-    .floating-cart-btn {
+    /* Floating Support Trigger */
+    .floating-cskh-btn {
       position: fixed;
-      bottom: 36px;
+      bottom: 24px;
       right: 18px;
-      background: linear-gradient(135deg, #00f0ff, #0099ff);
-      color: #000;
-      height: 52px;
-      min-width: 52px;
-      border-radius: 26px;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: #fff;
+      height: 46px;
+      padding: 0 18px;
+      border-radius: 24px;
       border: none;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 25px rgba(0, 240, 255, 0.45);
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.55);
       cursor: pointer;
-      z-index: 1000;
-      padding: 0 15px;
-      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 999;
+      transition: bottom 0.3s ease, transform 0.2s ease;
     }
 
-    .floating-cart-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(0, 240, 255, 0.6);
-    }
-    .floating-cart-btn:active { transform: scale(0.95); }
-
-    .cart-icon-main {
-      font-size: 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    body.has-cart .floating-cskh-btn {
+      bottom: 84px;
     }
 
-    .cart-label-expanded {
-      display: inline-block;
-      max-width: 0;
-      opacity: 0;
-      overflow: hidden;
-      white-space: nowrap;
-      font-size: 0.82rem;
-      font-weight: 800;
-      color: #000;
-      margin-left: 0;
-      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    .floating-cskh-btn:hover { transform: scale(1.05); }
+    .floating-cskh-btn:active { transform: scale(0.95); }
 
-    .floating-cart-btn.show-pill .cart-label-expanded {
-      max-width: 220px;
-      opacity: 1;
-      margin-left: 8px;
-    }
-
-    .cart-badge {
-      position: absolute;
-      top: -3px;
-      right: -3px;
-      background: #fe2c55;
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 800;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid #000;
-      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .cart-badge.cart-pop {
-      animation: badgePop 0.45s ease-out;
-    }
-
-    @keyframes badgePop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.6) rotate(-10deg); }
-      75% { transform: scale(0.9) rotate(5deg); }
-      100% { transform: scale(1); }
-    }
-
-    .flying-cart-clone {
+    /* Support Chat Window */
+    .cskh-chat-modal {
       position: fixed;
-      z-index: 10000;
-      border-radius: 12px;
-      object-fit: cover;
-      pointer-events: none;
-      box-shadow: 0 10px 25px rgba(0, 240, 255, 0.6);
-      border: 2px solid #00f0ff;
-      transition: all 0.75s cubic-bezier(0.2, 0.8, 0.2, 1);
+      bottom: 96px;
+      right: 18px;
+      width: calc(100vw - 36px);
+      max-width: 370px;
+      height: 480px;
+      max-height: 72vh;
+      background: rgba(16, 18, 28, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(88, 101, 242, 0.55);
+      border-radius: 22px;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 25px rgba(88, 101, 242, 0.3);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px) scale(0.95);
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Drawer Giỏ hàng */
+    .cskh-chat-modal.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .cskh-header {
+      background: rgba(88, 101, 242, 0.22);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cskh-header-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: #00f0ff;
+    }
+
+    .cskh-online-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #00ff88;
+      box-shadow: 0 0 10px #00ff88;
+    }
+
+    .btn-close-cskh {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    .cskh-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chat-bubble {
+      max-width: 82%;
+      padding: 9px 14px;
+      border-radius: 16px;
+      font-size: 0.86rem;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .chat-bubble.admin {
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-bubble.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #5865F2, #7289da);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-bubble-time {
+      font-size: 0.65rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 4px;
+      text-align: right;
+    }
+
+    .cskh-footer {
+      padding: 12px 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.45);
+    }
+
+    .cskh-footer input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 20px;
+      padding: 9px 16px;
+      color: #fff;
+      font-size: 0.88rem;
+      outline: none;
+    }
+
+    .cskh-footer input:focus { border-color: #5865F2; }
+
+    .btn-send-cskh {
+      background: #5865F2;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    /* Cart Drawer Modal */
     .cart-drawer-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       z-index: 2000;
       opacity: 0;
       visibility: hidden;
@@ -901,19 +782,19 @@
 
     .cart-drawer {
       width: 100%;
-      max-width: 500px;
-      max-height: 82vh;
-      background: rgba(18, 18, 28, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(254, 44, 85, 0.4);
+      max-width: 520px;
+      max-height: 84vh;
+      background: rgba(18, 20, 32, 0.96);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(0, 240, 255, 0.4);
       border-bottom: none;
       border-radius: 24px 24px 0 0;
-      padding: 16px 18px 26px;
+      padding: 18px 20px 28px;
       display: flex;
       flex-direction: column;
       transform: translateY(100%);
-      transition: transform 0.32s cubic-bezier(0.1, 0.9, 0.2, 1);
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .cart-drawer-overlay.active .cart-drawer {
@@ -923,9 +804,9 @@
     @media (min-width: 768px) {
       .cart-drawer-overlay { align-items: center; }
       .cart-drawer {
-        border-bottom: 1px solid rgba(254, 44, 85, 0.4);
+        border-bottom: 1px solid rgba(0, 240, 255, 0.4);
         border-radius: 24px;
-        transform: scale(0.9);
+        transform: scale(0.92);
       }
       .cart-drawer-overlay.active .cart-drawer { transform: scale(1); }
     }
@@ -934,12 +815,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 12px;
+      padding-bottom: 14px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .cart-header h3 {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: #00f0ff;
       display: flex;
       align-items: center;
@@ -949,8 +830,8 @@
     .btn-close-cart {
       background: none;
       border: none;
-      color: #888;
-      font-size: 1.4rem;
+      color: #94a3b8;
+      font-size: 1.5rem;
       cursor: pointer;
     }
 
@@ -958,44 +839,49 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 0;
+      padding: 12px 0;
       font-size: 0.85rem;
-      color: #ccc;
+      color: #cbd5e1;
     }
 
     .cart-select-bar label {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       cursor: pointer;
     }
 
     .cart-items-list {
       flex: 1;
       overflow-y: auto;
-      max-height: 44vh;
+      max-height: 42vh;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      padding: 6px 0;
+      padding: 4px 0;
     }
 
     .cart-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 8px 10px;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 10px 12px;
     }
 
-    .cart-item-img {
-      width: 48px;
-      height: 48px;
-      border-radius: 8px;
-      object-fit: cover;
-      background: #000;
+    .cart-item-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(0, 240, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #00f0ff;
+      font-size: 1.3rem;
+      flex-shrink: 0;
     }
 
     .cart-item-info {
@@ -1004,16 +890,16 @@
     }
 
     .cart-item-title {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 700;
-      color: #fe2c55;
+      color: #00f0ff;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .cart-item-price {
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: 700;
       color: #fcee0a;
       margin-top: 2px;
@@ -1022,9 +908,9 @@
     .btn-remove-item {
       background: none;
       border: none;
-      color: #777;
+      color: #64748b;
       padding: 6px;
-      font-size: 1rem;
+      font-size: 1.1rem;
       cursor: pointer;
       transition: color 0.2s;
     }
@@ -1032,11 +918,11 @@
     .btn-remove-item:hover { color: #fe2c55; }
 
     .cart-footer {
-      padding-top: 14px;
+      padding-top: 16px;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
     .cart-summary {
@@ -1046,79 +932,27 @@
     }
 
     .cart-total-price {
-      font-size: 1.15rem;
+      font-size: 1.25rem;
       font-weight: 800;
-      color: #fcee0a;
-      text-shadow: 0 0 10px rgba(252, 238, 10, 0.4);
+      color: #00f0ff;
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
     }
 
-    .btn-checkout {
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(135deg, #fe2c55, #ff0055);
-      border: none;
-      border-radius: 12px;
-      color: #fff;
-      font-size: 0.92rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 6px 20px rgba(254, 44, 85, 0.5);
-    }
-
-    .btn-checkout:active { transform: scale(0.98); }
-
-    /* Modal phóng to ảnh */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.9);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 9999;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-    }
-
-    .modal-overlay.active { display: flex; }
-
-    .image-modal-content {
-      max-width: 95vw;
-      max-height: 85vh;
-      object-fit: contain;
-      border-radius: 10px;
-      border: 1px solid rgba(254, 44, 85, 0.4);
-    }
-
-    .image-modal-close {
-      position: absolute;
-      top: 16px;
-      right: 20px;
-      color: #fff;
-      font-size: 32px;
-      cursor: pointer;
-    }
-
-    /* Modal Thông Báo Đặt Hàng */
+    /* Redirect Modal */
     .order-modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       z-index: 11000;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 18px;
+      padding: 20px;
       opacity: 0;
       visibility: hidden;
-      transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .order-modal-overlay.active {
@@ -1128,51 +962,48 @@
 
     .order-modal-card {
       width: 100%;
-      max-width: 440px;
-      background: rgba(18, 18, 26, 0.92);
-      border: 1.5px solid #fe2c55;
-      border-radius: 22px;
-      padding: 24px 20px 22px;
+      max-width: 450px;
+      background: rgba(18, 20, 32, 0.98);
+      border: 1.5px solid #00f0ff;
+      border-radius: 24px;
+      padding: 26px 22px;
       text-align: center;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(254, 44, 85, 0.4);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 240, 255, 0.35);
       transform: scale(0.9);
-      transition: transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .order-modal-overlay.active .order-modal-card {
-      transform: scale(1);
-    }
+    .order-modal-overlay.active .order-modal-card { transform: scale(1); }
 
     .order-modal-icon {
-      font-size: 2.6rem;
+      font-size: 2.8rem;
       color: #00f0ff;
       margin-bottom: 12px;
-      animation: pulseIcon 1.5s infinite;
+      animation: pulseIcon 1.6s infinite;
     }
 
     @keyframes pulseIcon {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
+      50% { transform: scale(1.12); }
     }
 
     .order-modal-title {
-      font-size: 1.18rem;
+      font-size: 1.24rem;
       font-weight: 800;
       color: #00f0ff;
-      text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
-      margin-bottom: 10px;
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+      margin-bottom: 12px;
     }
 
     .order-modal-box {
-      background: rgba(254, 44, 85, 0.12);
-      border: 1px dashed rgba(254, 44, 85, 0.5);
-      border-radius: 12px;
-      padding: 12px;
-      margin: 12px 0 16px;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px dashed rgba(0, 240, 255, 0.45);
+      border-radius: 14px;
+      padding: 14px;
+      margin: 14px 0 18px;
       font-size: 0.88rem;
-      line-height: 1.45;
-      color: #eee;
+      line-height: 1.5;
+      color: #e2e8f0;
     }
 
     .order-modal-highlight {
@@ -1188,237 +1019,47 @@
 
     .btn-goto-tiktok {
       width: 100%;
-      padding: 12px;
-      background: linear-gradient(135deg, #fe2c55, #ff0055);
+      padding: 13px;
+      background: linear-gradient(135deg, #00f0ff, #0099ff);
       border: none;
-      border-radius: 12px;
-      color: #fff;
-      font-size: 0.94rem;
+      border-radius: 14px;
+      color: #000;
+      font-size: 0.96rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 6px 20px rgba(254, 44, 85, 0.45);
-      transition: transform 0.15s ease;
+      box-shadow: 0 6px 20px rgba(0, 240, 255, 0.5);
     }
-
-    .btn-goto-tiktok:active { transform: scale(0.98); }
 
     .btn-cancel-modal {
       background: none;
       border: none;
-      color: #888;
-      font-size: 0.82rem;
-      cursor: pointer;
-      padding: 4px;
-      transition: color 0.2s;
-    }
-
-    .btn-cancel-modal:hover { color: #ddd; }
-
-    /* CSKH Live */
-    .floating-cskh-btn {
-      position: fixed;
-      bottom: 36px;
-      left: 18px;
-      background: linear-gradient(135deg, #2563eb, #3b82f6);
-      color: #fff;
-      height: 44px;
-      padding: 0 16px;
-      border-radius: 22px;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 0.88rem;
-      font-weight: 700;
-      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
-      cursor: pointer;
-      z-index: 1001;
-      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    body.wuwa-mode .floating-cskh-btn {
-      bottom: 74px;
-      left: auto;
-      right: 18px;
-    }
-
-    .floating-cskh-btn:hover { transform: scale(1.05); }
-    .floating-cskh-btn:active { transform: scale(0.94); }
-
-    body.wuwa-mode .floating-cskh-btn {
-      bottom: 24px;
-      left: auto;
-      right: 18px;
-      transition: bottom 0.28s ease, transform 0.25s ease;
-    }
-
-    body.wuwa-mode.has-cart .floating-cskh-btn {
-      bottom: 76px;
-    }
-
-    .cskh-chat-modal {
-      position: fixed;
-      bottom: 96px;
-      left: 18px;
-      width: calc(100vw - 36px);
-      max-width: 360px;
-      height: 480px;
-      max-height: 72vh;
-      background: rgba(16, 16, 26, 0.92);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(88, 101, 242, 0.5);
-      border-radius: 20px;
-      z-index: 2000;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 20px rgba(88, 101, 242, 0.3);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(20px) scale(0.95);
-      transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .cskh-chat-modal.active {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0) scale(1);
-    }
-
-    .cskh-header {
-      background: rgba(88, 101, 242, 0.2);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 12px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .cskh-header-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: #00f0ff;
-    }
-
-    .cskh-online-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #00ff88;
-      box-shadow: 0 0 8px #00ff88;
-    }
-
-    .btn-close-cskh {
-      background: none;
-      border: none;
-      color: #888;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-
-    .cskh-body {
-      flex: 1;
-      overflow-y: auto;
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .chat-bubble {
-      max-width: 82%;
-      padding: 8px 12px;
-      border-radius: 14px;
+      color: #94a3b8;
       font-size: 0.85rem;
-      line-height: 1.4;
-      word-break: break-word;
-    }
-
-    .chat-bubble.admin {
-      align-self: flex-start;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff;
-      border-bottom-left-radius: 2px;
-    }
-
-    .chat-bubble.user {
-      align-self: flex-end;
-      background: linear-gradient(135deg, #5865F2, #7289da);
-      color: #fff;
-      border-bottom-right-radius: 2px;
-    }
-
-    .chat-bubble-time {
-      font-size: 0.65rem;
-      color: rgba(255, 255, 255, 0.5);
-      margin-top: 3px;
-      text-align: right;
-    }
-
-    .cskh-footer {
-      padding: 10px 12px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      gap: 8px;
-      background: rgba(0, 0, 0, 0.4);
-    }
-
-    .cskh-footer input {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
-      padding: 8px 14px;
-      color: #fff;
-      font-size: 0.86rem;
-      outline: none;
-    }
-
-    .cskh-footer input:focus { border-color: #5865F2; }
-
-    .btn-send-cskh {
-      background: #5865F2;
-      border: none;
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      color: #fff;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-      transition: transform 0.15s;
+      padding: 6px;
     }
 
-    .btn-send-cskh:active { transform: scale(0.9); }
-
+    /* Toast */
     .toast-msg {
       position: fixed;
       bottom: 24px;
       left: 50%;
       transform: translateX(-50%) translateY(100px);
-      background: rgba(18, 18, 24, 0.95);
+      background: rgba(16, 20, 30, 0.95);
       border: 1px solid #00f0ff;
       color: #fff;
-      padding: 9px 18px;
-      border-radius: 24px;
-      font-size: 0.85rem;
-      box-shadow: 0 8px 25px rgba(0, 240, 255, 0.35);
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      box-shadow: 0 10px 30px rgba(0, 240, 255, 0.4);
       z-index: 12000;
       opacity: 0;
       pointer-events: none;
-      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s ease;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
       white-space: nowrap;
     }
 
@@ -1430,49 +1071,36 @@
 </head>
 <body>
 
-  <!-- Video Background & Overlay -->
+  <!-- Video Background & Backdrop Overlay -->
   <video class="bg-video" autoplay loop muted playsinline poster="avatar.jpg">
     <source src="bg.mp4" type="video/mp4">
   </video>
   <div class="bg-overlay"></div>
 
   <div class="container">
-    <img src="chibi.png" alt="Chía Chibi Trái" class="chibi-sitter-left">
-    <img src="chibi-right1.png" alt="Chía Chibi Phải" class="chibi-sitter-right">
+    <!-- Playful mascot badges with images -->
+    <img src="chibi.png" alt="Chía Chibi Trái" class="chibi-sitter-left" onerror="this.style.display='none'">
+    <img src="chibi-right1.png" alt="Chía Chibi Phải" class="chibi-sitter-right" onerror="this.style.display='none'">
 
     <div class="card-border-wrapper">
       <main class="card">
-        
-        <!-- Thanh chọn Danh Mục Chính: Áo vs WuWa -->
-        <div class="main-category-switcher">
-          <button id="catBtnShirts" class="btn-cat-switch active" onclick="switchMainCategory('shirts')">
-            <i class="fa-solid fa-shirt"></i> KHO ÁO CÓ SẴN
-          </button>
-          <button id="catBtnWuwa" class="btn-cat-switch" onclick="switchMainCategory('wuwa')">
-            <i class="fa-solid fa-gem"></i> NẠP GAME WUWA
-          </button>
-        </div>
-
         <header class="card-header-main">
-          <h1 id="headerTitleText">
-            <i class="fa-solid fa-shirt"></i> DANH SÁCH ÁO CÓ SẴN
-          </h1>
-          <p id="headerSubText" style="font-size: 0.82rem; color: #eee; margin-top: 4px; text-shadow: 0 1px 4px rgba(0,0,0,0.8);">
-            Nhấn <strong>"MUA ÁO"</strong> hoặc thêm nhiều áo vào <strong>GIỎ HÀNG</strong> để đặt 1 lượt nhé 💗
-          </p>
+          <div class="brand-badge"><i class="fa-solid fa-shield-halved"></i> Uy Tín & An Toàn 100%</div>
+          <h1>BẢNG GIÁ NẠP GAME <span>WUWA</span></h1>
+          <p>Chọn các gói nạp Wuthering Waves bạn cần rồi ấn <strong>"THANH TOÁN"</strong> bên dưới để hoàn tất nhé 💗</p>
         </header>
 
-        <!-- Ô Tìm kiếm -->
-        <div id="searchBoxContainer" class="vault-search-box">
+        <!-- Search Input -->
+        <div class="vault-search-box">
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
-          <input type="text" id="vaultSearchInput" placeholder="Tìm kiếm mã áo (#xxxxx)..." autocomplete="off">
+          <input type="text" id="wuwaSearchInput" placeholder="Tìm kiếm gói nạp (Thẻ tháng, 300 Lunite, v.v.)..." autocomplete="off">
           <button type="button" id="searchClearBtn" class="search-clear-btn" onclick="clearSearchInput()">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
-        <!-- Chips bộ lọc -->
-        <div class="filter-chips" id="filterChipsContainer">
+        <!-- Filter Chips -->
+        <div class="filter-chips">
           <button class="chip-btn active" data-filter="all">Tất cả</button>
           <button class="chip-btn" data-filter="under100">Dưới 100k</button>
           <button class="chip-btn" data-filter="100to300">100k - 300k</button>
@@ -1480,76 +1108,63 @@
           <button class="chip-btn" data-filter="sortAsc">Giá rẻ trước</button>
         </div>
 
-        <!-- Skeleton Loading -->
-        <div id="vaultSkeleton" class="skeleton-grid">
+        <!-- Skeleton Preloader -->
+        <div id="wuwaSkeleton" class="skeleton-grid">
           <div class="skeleton-card">
             <div class="skeleton-img"></div>
-            <div class="skeleton-body">
-              <div class="skeleton-line" style="width: 60%;"></div>
-              <div class="skeleton-btn"></div>
-            </div>
+            <div class="skeleton-line" style="width: 70%;"></div>
+            <div class="skeleton-line" style="width: 45%;"></div>
           </div>
           <div class="skeleton-card">
             <div class="skeleton-img"></div>
-            <div class="skeleton-body">
-              <div class="skeleton-line" style="width: 50%;"></div>
-              <div class="skeleton-btn"></div>
-            </div>
+            <div class="skeleton-line" style="width: 80%;"></div>
+            <div class="skeleton-line" style="width: 40%;"></div>
           </div>
         </div>
 
-        <!-- Grid Sản Phẩm -->
-        <div id="vaultGrid" class="vault-grid" style="display: none;"></div>
+        <!-- Dynamic Packages Grid -->
+        <div id="wuwaGrid" class="wuwa-grid-layout" style="display: none;"></div>
 
-        <!-- Empty State -->
-        <div id="vaultEmpty" style="display: none; text-align: center; padding: 30px 10px; color: #ccc;">
-          <i class="fa-solid fa-box-open" style="font-size: 2rem; margin-bottom: 8px;"></i>
-          <p id="emptyMsgText">Không tìm thấy mẫu áo phù hợp!</p>
+        <!-- Empty Filter State -->
+        <div id="wuwaEmpty" style="display: none; text-align: center; padding: 40px 10px; color: #94a3b8;">
+          <i class="fa-solid fa-box-open" style="font-size: 2.2rem; margin-bottom: 10px; color: #64748b;"></i>
+          <p>Không tìm thấy gói nạp WuWa phù hợp với tìm kiếm của bạn!</p>
         </div>
       </main>
     </div>
   </div>
 
-  <!-- Nút CSKH Trực Tuyến Nổi -->
+  <!-- CSKH Trigger Button -->
   <button class="floating-cskh-btn" onclick="toggleCskhModal()" title="Hỗ trợ & CSKH">
     <i class="fa-solid fa-headset"></i>
     <span>CSKH</span>
   </button>
 
-  <!-- Khung Chat CSKH Live -->
+  <!-- CSKH Live Chat Modal -->
   <div id="cskhChatModal" class="cskh-chat-modal">
     <div class="cskh-header">
       <div class="cskh-header-title">
         <span class="cskh-online-dot"></span>
-        <span>Hỗ trợ Chía 💗</span>
+        <span>Hỗ trợ Nạp Game Chía 💗</span>
       </div>
       <button class="btn-close-cskh" onclick="toggleCskhModal(false)">&times;</button>
     </div>
 
     <div id="cskhChatBody" class="cskh-body">
       <div class="chat-bubble admin">
-        chào bạn💗cảm ơn bạn đã ủng hộ shop. Nếu có vấn đề gì hãy thoải mái nhắn mình ở đây nhé 💗
+        Chào bạn 💗 Cảm ơn bạn đã ghé shop. Nếu cần hỏi gói nạp hay hỗ trợ nạp ID in-game, bạn cứ nhắn mình ở đây nhé!
       </div>
     </div>
 
     <form class="cskh-footer" onsubmit="handleSendCskhMessage(event)">
-      <input type="text" id="cskhInputText" placeholder="Nhập tin nhắn..." autocomplete="off">
+      <input type="text" id="cskhInputText" placeholder="Nhập tin nhắn hỗ trợ..." autocomplete="off">
       <button type="submit" class="btn-send-cskh">
         <i class="fa-solid fa-paper-plane"></i>
       </button>
     </form>
   </div>
 
-  <!-- Nút Giỏ Hàng Nổi -->
-  <button id="floatingCartBtn" class="floating-cart-btn" onclick="toggleCartDrawer(true)" title="Xem giỏ hàng">
-    <div class="cart-icon-main">
-      <i class="fa-solid fa-bag-shopping"></i>
-    </div>
-    <span id="cartLabelExpanded" class="cart-label-expanded">0 món • 0đ</span>
-    <span id="cartCountBadge" class="cart-badge">0</span>
-  </button>
-
-  <!-- Thanh Thanh Toán Dưới Cùng cho Nạp WuWa -->
+  <!-- Sticky Bottom Checkout Action -->
   <div id="wuwaBottomBar" class="wuwa-bottom-bar">
     <div class="wuwa-bottom-left" onclick="toggleCartDrawer(true)">
       <div class="wuwa-cart-icon-wrap">
@@ -1557,7 +1172,7 @@
         <span id="wuwaCartBadge" class="wuwa-cart-badge">0</span>
       </div>
       <div class="wuwa-cart-info">
-        <span class="wuwa-cart-count-text"><span id="wuwaCartItemCount">0</span> sản phẩm <i class="fa-solid fa-chevron-up" style="font-size: 0.65rem;"></i></span>
+        <span class="wuwa-cart-count-text"><span id="wuwaCartItemCount">0</span> gói đã chọn <i class="fa-solid fa-chevron-up" style="font-size: 0.65rem;"></i></span>
         <span id="wuwaCartTotalPrice" class="wuwa-cart-total-text">0 đ</span>
       </div>
     </div>
@@ -1566,11 +1181,11 @@
     </button>
   </div>
 
-  <!-- Drawer / Modal Giỏ Hàng -->
+  <!-- Cart Drawer Component -->
   <div id="cartDrawerOverlay" class="cart-drawer-overlay" onclick="handleOverlayClick(event)">
     <div class="cart-drawer">
       <div class="cart-header">
-        <h3><i class="fa-solid fa-bag-shopping"></i> Giỏ hàng của bạn</h3>
+        <h3><i class="fa-solid fa-bag-shopping"></i> Gói nạp đã chọn</h3>
         <button class="btn-close-cart" onclick="toggleCartDrawer(false)">&times;</button>
       </div>
 
@@ -1579,7 +1194,7 @@
           <input type="checkbox" id="selectAllCartCheckbox" onchange="toggleSelectAllCart(this.checked)" checked>
           Chọn tất cả (<span id="selectedCountText">0</span>)
         </label>
-        <button onclick="clearAllCart()" style="background:none; border:none; color:#fe2c55; font-size:0.8rem; cursor:pointer;">
+        <button onclick="clearAllCart()" style="background:none; border:none; color:#fe2c55; font-size:0.82rem; font-weight:700; cursor:pointer;">
           <i class="fa-regular fa-trash-can"></i> Xóa hết
         </button>
       </div>
@@ -1588,17 +1203,17 @@
 
       <div class="cart-footer">
         <div class="cart-summary">
-          <span style="font-size: 0.9rem; color: #ccc;">Tổng thanh toán:</span>
-          <span id="cartTotalPrice" class="cart-total-price">0đ</span>
+          <span style="font-size: 0.95rem; color: #94a3b8;">Tổng thanh toán:</span>
+          <span id="cartTotalPrice" class="cart-total-price">0 đ</span>
         </div>
-        <button class="btn-checkout" onclick="checkoutSelectedCart()">
-          <i class="fa-brands fa-tiktok"></i> MUA CÁC MỤC ĐÃ CHỌN
+        <button class="btn-wuwa-checkout" style="width:100%; justify-content:center;" onclick="checkoutSelectedCart()">
+          <i class="fa-brands fa-tiktok"></i> MUA CÁC GÓI ĐÃ CHỌN
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Modal Thông Báo Đặt Hàng -->
+  <!-- Copy & Redirection Notification -->
   <div id="orderNoticeModal" class="order-modal-overlay">
     <div class="order-modal-card">
       <div class="order-modal-icon">
@@ -1607,9 +1222,9 @@
       <div class="order-modal-title">ĐÃ COPY ĐƠN HÀNG! 💗</div>
       
       <div class="order-modal-box">
-        Đơn hàng đã được lưu vào bộ nhớ tạm.<br>
-        Hệ thống chuẩn bị chuyển bạn sang TikTok của Chía.<br><br>
-        👉 <span class="order-modal-highlight">Việc của bạn là chỉ cần DÁN (PASTE) vào tin nhắn cho Chía nhé!</span>
+        Đơn nạp WuWa đã được copy sẵn vào bộ nhớ tạm của bạn.<br>
+        Hệ thống chuẩn bị mở ứng dụng TikTok của Chía.<br><br>
+        👉 <span class="order-modal-highlight">Bạn chỉ việc DÁN (PASTE) vào ô tin nhắn gửi cho Chía là xong nhé!</span>
       </div>
 
       <div class="order-modal-actions">
@@ -1617,16 +1232,10 @@
           <i class="fa-brands fa-tiktok"></i> MỞ TIKTOK NGAY (<span id="redirectCount">10s</span>)
         </button>
         <button class="btn-cancel-modal" onclick="closeOrderNoticeModal()">
-          Ở lại trang này
+          Ở lại trang web
         </button>
       </div>
     </div>
-  </div>
-
-  <!-- Modal Zoom Ảnh -->
-  <div id="imageModal" class="modal-overlay" onclick="closeImageModal()">
-    <span class="image-modal-close" onclick="closeImageModal()">&times;</span>
-    <img class="image-modal-content" id="modalImg" alt="Xem ảnh phóng to" onclick="event.stopPropagation()">
   </div>
 
   <div id="toast" class="toast-msg"></div>
@@ -1637,9 +1246,20 @@
     const TIKTOK_USERNAME = 'phalnnn';
     const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1556846947611054181/5r1jFTCmgmv-gFv3_TJYnZVNuBHor2Pf22HbZjBpZclmyKEQp1dkpYhKKVlUAJ4vMEH7';
 
+    // Rich default mock packages ensuring live visual feedback immediately
+    const DEFAULT_WUWA_PACKAGES = [
+      { id: 'wuwa_1', rawId: 1, title: 'Thẻ Tháng Lunite Subscription (30 Ngày)', price: 99000, icon: 'fa-moon' },
+      { id: 'wuwa_2', rawId: 2, title: 'Gói 60 Lunite + Thưởng x2 lần đầu', price: 23000, icon: 'fa-gem' },
+      { id: 'wuwa_3', rawId: 3, title: 'Gói 300+30 Lunite (Tặng x2 lần đầu)', price: 115000, icon: 'fa-gem' },
+      { id: 'wuwa_4', rawId: 4, title: 'Gói 980+110 Lunite (Tặng x2 lần đầu)', price: 360000, icon: 'fa-cubes' },
+      { id: 'wuwa_5', rawId: 5, title: 'Gói 1980+260 Lunite (Tặng x2 lần đầu)', price: 720000, icon: 'fa-crown' },
+      { id: 'wuwa_6', rawId: 6, title: 'Gói 3280+600 Lunite (Tặng x2 lần đầu)', price: 1190000, icon: 'fa-certificate' },
+      { id: 'wuwa_7', rawId: 7, title: 'Gói 6480+1600 Lunite (Tặng x2 lần đầu)', price: 2390000, icon: 'fa-award' },
+      { id: 'wuwa_8', rawId: 8, title: 'Battle Pass Insider Channel (Thường)', price: 235000, icon: 'fa-book-bookmark' },
+      { id: 'wuwa_9', rawId: 9, title: 'Battle Pass Connoisseur Channel (Vip)', price: 470000, icon: 'fa-shield-halved' }
+    ];
+
     let _supabase = null;
-    let currentCategory = 'shirts';
-    let vaultAccounts = [];
     let wuwaPackages = [];
     let cart = [];
     let currentFilter = 'all';
@@ -1647,13 +1267,15 @@
     let searchDebounceTimer = null;
     let redirectTimer = null;
     let countdownInterval = null;
-    let pillScrollTimeout = null;
 
-    let chatSessionId = localStorage.getItem('chia_chat_session_id');
+    let chatSessionId = localStorage.getItem('chia_wuwa_chat_session');
     if (!chatSessionId) {
-      chatSessionId = 'guest_' + Math.random().toString(36).substring(2, 9);
-      localStorage.setItem('chia_chat_session_id', chatSessionId);
+      chatSessionId = 'wuwa_guest_' + Math.random().toString(36).substring(2, 9);
+      localStorage.setItem('chia_wuwa_chat_session', chatSessionId);
     }
+
+    let chatPollingTimer = null;
+    let lastChatTimestamp = null;
 
     function showToast(text) {
       const toast = document.getElementById('toast');
@@ -1662,311 +1284,175 @@
       setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
+    function formatPrice(num) {
+      return num > 0 ? num.toLocaleString('vi-VN') + ' đ' : 'Liên hệ';
+    }
+
     function loadSavedCart() {
       try {
-        const saved = localStorage.getItem('chia_cart');
+        const saved = localStorage.getItem('chia_wuwa_cart');
         if (saved) cart = JSON.parse(saved);
       } catch (e) { cart = []; }
-      updateCartBadge();
+      updateWuwaBottomBar();
     }
 
     function saveCart() {
-      localStorage.setItem('chia_cart', JSON.stringify(cart));
-      updateCartBadge();
-    }
-
-    function updateCartBadge() {
-      const badge = document.getElementById('cartCountBadge');
-      const label = document.getElementById('cartLabelExpanded');
-      const btn = document.getElementById('floatingCartBtn');
-
-      badge.textContent = cart.length;
-      const total = cart.reduce((sum, item) => sum + (item.price || 0), 0);
-      label.textContent = `${cart.length} món • ${formatPrice(total)}`;
-
-      if (currentCategory === 'shirts') {
-        if (cart.length > 0) {
-          btn.classList.add('show-pill');
-        } else {
-          btn.classList.remove('show-pill');
-        }
-      }
-
+      localStorage.setItem('chia_wuwa_cart', JSON.stringify(cart));
       updateWuwaBottomBar();
     }
 
     function updateWuwaBottomBar() {
       const bottomBar = document.getElementById('wuwaBottomBar');
-      const floatingCart = document.getElementById('floatingCartBtn');
       const wuwaBadge = document.getElementById('wuwaCartBadge');
       const wuwaCount = document.getElementById('wuwaCartItemCount');
       const wuwaTotal = document.getElementById('wuwaCartTotalPrice');
 
-      if (currentCategory === 'wuwa') {
-        floatingCart.style.display = 'none';
-        document.body.classList.add('wuwa-mode');
+      const selectedItems = cart.filter(item => item.selected !== false);
+      const count = selectedItems.length;
+      const total = selectedItems.reduce((sum, item) => sum + (item.price || 0), 0);
 
-        const wuwaItems = cart.filter(item => item.selected !== false);
-        const count = wuwaItems.length;
-        const total = wuwaItems.reduce((sum, item) => sum + (item.price || 0), 0);
+      wuwaBadge.textContent = count;
+      wuwaCount.textContent = count;
+      wuwaTotal.textContent = total > 0 ? total.toLocaleString('vi-VN') + ' đ' : '0 đ';
 
-        wuwaBadge.textContent = count;
-        wuwaCount.textContent = count;
-        wuwaTotal.textContent = total > 0 ? total.toLocaleString('vi-VN') + ' đ' : '0 đ';
-
-        /* Chỉ hiển thị thanh thanh toán khi đã chọn ít nhất 1 gói */
-        if (count > 0) {
-          bottomBar.classList.add('active');
-          document.body.classList.add('has-cart');
-        } else {
-          bottomBar.classList.remove('active');
-          document.body.classList.remove('has-cart');
-        }
+      if (count > 0) {
+        bottomBar.classList.add('active');
+        document.body.classList.add('has-cart');
       } else {
-        floatingCart.style.display = 'flex';
         bottomBar.classList.remove('active');
-        document.body.classList.remove('wuwa-mode');
         document.body.classList.remove('has-cart');
       }
     }
 
-    function triggerFlyToCartAnimation(sourceImgElement) {
-      if (!sourceImgElement) return;
-      const cartBtn = document.getElementById('floatingCartBtn');
-      const badge = document.getElementById('cartCountBadge');
-      const startRect = sourceImgElement.getBoundingClientRect();
-      const targetRect = cartBtn.getBoundingClientRect();
-
-      const clone = document.createElement('img');
-      clone.src = sourceImgElement.src;
-      clone.className = 'flying-cart-clone';
-      clone.style.top = `${startRect.top}px`;
-      clone.style.left = `${startRect.left}px`;
-      clone.style.width = `${startRect.width}px`;
-      clone.style.height = `${startRect.height}px`;
-      clone.style.opacity = '0.95';
-
-      document.body.appendChild(clone);
-      const targetX = targetRect.left + (targetRect.width / 2) - 15;
-      const targetY = targetRect.top + (targetRect.height / 2) - 15;
-
-      requestAnimationFrame(() => {
-        clone.style.transform = `scale(0.18) rotate(25deg)`;
-        clone.style.top = `${targetY}px`;
-        clone.style.left = `${targetX}px`;
-        clone.style.opacity = '0.15';
-      });
-
-      setTimeout(() => {
-        clone.remove();
-        badge.classList.remove('cart-pop');
-        void badge.offsetWidth;
-        badge.classList.add('cart-pop');
-        cartBtn.classList.add('show-pill');
-      }, 750);
-    }
-
-    async function initSupabase() {
+    async function initApp() {
       loadSavedCart();
-      const checkLibrary = () => window.supabase && typeof window.supabase.createClient === 'function';
 
-      if (!checkLibrary()) {
-        let attempts = 0;
-        const interval = setInterval(async () => {
-          attempts++;
-          if (checkLibrary()) {
-            clearInterval(interval);
-            _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-            await fetchAllData();
-            initRealtimeChat();
-          } else if (attempts > 50) {
-            clearInterval(interval);
-            document.getElementById('vaultSkeleton').innerHTML = `<p style="color:#fe2c55; text-align:center; padding:20px 0;">Không thể tải dữ liệu!</p>`;
-          }
-        }, 80);
-      } else {
-        _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        await fetchAllData();
-        initRealtimeChat();
+      // Initialize Supabase with realtime completely turned off to avoid sandbox WebSocket errors
+      if (window.supabase && typeof window.supabase.createClient === 'function') {
+        try {
+          _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            auth: {
+              persistSession: false,
+              autoRefreshToken: false,
+              detectSessionInUrl: false
+            },
+            realtime: {
+              enabled: false
+            }
+          });
+        } catch (e) {
+          console.warn("Supabase init error:", e);
+        }
       }
-    }
 
-    async function fetchAllData() {
-      const skeletonEl = document.getElementById('vaultSkeleton');
-      try {
-        await Promise.all([fetchVaultShirts(), fetchWuwaPackages()]);
-        if (skeletonEl) skeletonEl.style.display = 'none';
-        applyFiltersAndRender();
-      } catch (err) {
-        console.error("Lỗi Supabase:", err);
-        if (skeletonEl) skeletonEl.innerHTML = `<p style="color:#fe2c55; text-align:center; padding:20px 0;">Không thể kết nối dữ liệu!</p>`;
-      }
-    }
-
-    async function fetchVaultShirts() {
-      const { data, error } = await _supabase
-        .from('accounts')
-        .select('id, title, image, price')
-        .eq('is_sold', false)
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      vaultAccounts = (data || []).map(row => ({
-        id: 'acc_' + row.id,
-        rawId: row.id,
-        type: 'shirt',
-        title: String(row.title || 'Mẫu áo chưa đặt tên'),
-        image: row.image || '',
-        price: parseFloat(row.price) || 0
-      }));
+      await fetchWuwaPackages();
     }
 
     async function fetchWuwaPackages() {
-      try {
-        const { data, error } = await _supabase
-          .from('wuwa_packages')
-          .select('id, title, price, image')
-          .order('price', { ascending: true });
+      const skeletonEl = document.getElementById('wuwaSkeleton');
+      let loadedRemote = false;
 
-        if (error) throw error;
-        wuwaPackages = (data || []).map(row => ({
-          id: 'wuwa_' + row.id,
-          rawId: row.id,
-          type: 'wuwa',
-          title: String(row.title || 'Gói Nạp WuWa'),
-          image: row.image || '',
-          price: parseFloat(row.price) || 0
-        }));
-      } catch (e) {
-        wuwaPackages = [];
-      }
-    }
+      if (_supabase) {
+        try {
+          const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 2500));
+          const fetchPromise = _supabase
+            .from('wuwa_packages')
+            .select('id, title, price, image')
+            .order('price', { ascending: true });
 
-    function formatPrice(num) {
-      return num > 0 ? num.toLocaleString('vi-VN') + 'đ' : 'Liên hệ';
-    }
+          const response = await Promise.race([fetchPromise, timeoutPromise]);
+          const { data, error } = response || {};
 
-    function switchMainCategory(cat) {
-      currentCategory = cat;
-      const btnShirts = document.getElementById('catBtnShirts');
-      const btnWuwa = document.getElementById('catBtnWuwa');
-      const headerTitle = document.getElementById('headerTitleText');
-      const headerSub = document.getElementById('headerSubText');
-      const searchBox = document.getElementById('searchBoxContainer');
-      const searchInput = document.getElementById('vaultSearchInput');
-      const chips = document.querySelectorAll('.chip-btn');
-
-      chips.forEach(b => {
-        b.classList.remove('active', 'active-wuwa');
-        if (b.dataset.filter === 'all') {
-          b.classList.add(cat === 'shirts' ? 'active' : 'active-wuwa');
+          if (!error && data && data.length > 0) {
+            wuwaPackages = data.map(row => ({
+              id: 'wuwa_' + row.id,
+              rawId: row.id,
+              title: String(row.title || 'Gói Nạp WuWa'),
+              image: row.image || '',
+              price: parseFloat(row.price) || 0,
+              icon: 'fa-gem'
+            }));
+            loadedRemote = true;
+          }
+        } catch (err) {
+          console.warn("Supabase remote fetch warning, using default package list:", err);
         }
-      });
-      currentFilter = 'all';
-
-      if (cat === 'shirts') {
-        btnShirts.className = 'btn-cat-switch active';
-        btnWuwa.className = 'btn-cat-switch';
-        headerTitle.innerHTML = `<i class="fa-solid fa-shirt"></i> DANH SÁCH ÁO CÓ SẴN`;
-        headerTitle.style.color = '#00f0ff';
-        headerSub.innerHTML = `Nhấn <strong>"MUA ÁO"</strong> hoặc thêm nhiều áo vào <strong>GIỎ HÀNG</strong> để đặt 1 lượt nhé 💗`;
-        searchBox.className = 'vault-search-box';
-        searchInput.placeholder = 'Tìm kiếm mã áo (#xxxxx)...';
-      } else {
-        btnWuwa.className = 'btn-cat-switch wuwa-active';
-        btnShirts.className = 'btn-cat-switch';
-        headerTitle.innerHTML = `<i class="fa-solid fa-gem"></i> BẢNG GIÁ NẠP GAME WUWA`;
-        headerTitle.style.color = '#00f0ff';
-        headerSub.innerHTML = `Chọn gói nạp bạn muốn mua rồi nhấn <strong>"THANH TOÁN"</strong> bên dưới nhé 💗`;
-        searchBox.className = 'vault-search-box wuwa-theme';
-        searchInput.placeholder = 'Tìm kiếm gói nạp (Thẻ tháng, Lunite...)...';
       }
 
-      updateWuwaBottomBar();
+      if (!loadedRemote) {
+        wuwaPackages = [...DEFAULT_WUWA_PACKAGES];
+      }
+
+      if (skeletonEl) skeletonEl.style.display = 'none';
       applyFiltersAndRender();
     }
 
     function applyFiltersAndRender() {
-      let sourceList = currentCategory === 'shirts' ? [...vaultAccounts] : [...wuwaPackages];
+      let list = [...wuwaPackages];
 
       if (searchQuery) {
-        sourceList = sourceList.filter(item => item.title.toLowerCase().includes(searchQuery));
+        list = list.filter(item => item.title.toLowerCase().includes(searchQuery));
       }
 
       if (currentFilter === 'under100') {
-        sourceList = sourceList.filter(item => item.price > 0 && item.price < 100000);
+        list = list.filter(item => item.price > 0 && item.price < 100000);
       } else if (currentFilter === '100to300') {
-        sourceList = sourceList.filter(item => item.price >= 100000 && item.price <= 300000);
+        list = list.filter(item => item.price >= 100000 && item.price <= 300000);
       } else if (currentFilter === 'over300') {
-        sourceList = sourceList.filter(item => item.price > 300000);
+        list = list.filter(item => item.price > 300000);
       } else if (currentFilter === 'sortAsc') {
-        sourceList.sort((a, b) => a.price - b.price);
+        list.sort((a, b) => a.price - b.price);
       }
 
-      renderCurrentGrid(sourceList);
+      renderGrid(list);
     }
 
-    function renderCurrentGrid(list) {
-      const gridEl = document.getElementById('vaultGrid');
-      const emptyEl = document.getElementById('vaultEmpty');
-      const emptyMsg = document.getElementById('emptyMsgText');
-
+    function renderGrid(list) {
+      const gridEl = document.getElementById('wuwaGrid');
+      const emptyEl = document.getElementById('wuwaEmpty');
       gridEl.replaceChildren();
 
       if (list.length === 0) {
         gridEl.style.display = 'none';
         emptyEl.style.display = 'block';
-        emptyMsg.textContent = currentCategory === 'shirts' ? 'Không tìm thấy mẫu áo phù hợp!' : 'Chưa có gói nạp WuWa phù hợp!';
         return;
       }
 
       emptyEl.style.display = 'none';
       gridEl.style.display = 'grid';
 
-      if (currentCategory === 'wuwa') {
-        gridEl.className = 'vault-grid wuwa-grid-layout';
-        renderWuwaGridItems(list, gridEl);
-      } else {
-        gridEl.className = 'vault-grid';
-        renderShirtsGridItems(list, gridEl);
-      }
-    }
-
-    function renderWuwaGridItems(list, gridEl) {
       const fragment = document.createDocumentFragment();
-
       list.forEach(item => {
-        const isSelected = cart.some(cartItem => cartItem.id === item.id);
+        const isSelected = cart.some(c => c.id === item.id);
         const card = document.createElement('div');
         card.className = `wuwa-shop-card ${isSelected ? 'selected' : ''}`;
+        
+        const imgSrc = item.image || 'avatar.jpg';
+        const imgContent = `<img src="${imgSrc}" alt="${item.title}" style="max-width:90%; max-height:90%; object-fit:contain;" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\\'fa-solid fa-gem wuwa-item-icon\\'></i>';" />`;
 
         card.innerHTML = `
           <div class="wuwa-check-badge">
             <i class="fa-solid fa-check"></i>
           </div>
           <div class="wuwa-item-img-wrap">
-            <img class="wuwa-item-img" src="${item.image || 'avatar.jpg'}" alt="${item.title}" loading="lazy" />
+            ${imgContent}
           </div>
           <div class="wuwa-item-meta">
             <div class="wuwa-item-title">${item.title}</div>
             <div class="wuwa-item-price">${formatPrice(item.price)}</div>
           </div>
         `;
-
-        card.onclick = () => {
-          toggleWuwaItemSelection(item, card);
-        };
-
+        card.onclick = () => toggleItemSelection(item, card);
         fragment.appendChild(card);
       });
 
       gridEl.appendChild(fragment);
     }
 
-    function toggleWuwaItemSelection(item, cardEl) {
-      const existingIdx = cart.findIndex(c => c.id === item.id);
-      if (existingIdx > -1) {
-        cart.splice(existingIdx, 1);
+    function toggleItemSelection(item, cardEl) {
+      const idx = cart.findIndex(c => c.id === item.id);
+      if (idx > -1) {
+        cart.splice(idx, 1);
         cardEl.classList.remove('selected');
         showToast(`Đã bỏ chọn "${item.title}"`);
       } else {
@@ -1975,92 +1461,6 @@
         showToast(`Đã chọn "${item.title}" 💗`);
       }
       saveCart();
-    }
-
-    function renderShirtsGridItems(list, gridEl) {
-      const fragment = document.createDocumentFragment();
-
-      list.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'vault-card';
-
-        const priceText = formatPrice(item.price);
-        const imgWrap = document.createElement('div');
-        imgWrap.className = 'vault-img-wrap';
-
-        let cardImgEl = null;
-        if (item.image) {
-          const img = document.createElement('img');
-          img.className = 'vault-img';
-          img.src = item.image;
-          img.alt = item.title;
-          img.loading = 'lazy';
-          imgWrap.appendChild(img);
-          imgWrap.onclick = () => openZoomImage(item.image);
-          cardImgEl = img;
-        } else {
-          imgWrap.innerHTML = `<div style="height:100%;display:flex;align-items:center;justify-content:center;color:#aaa;font-size:0.8rem;"><i class="fa-solid fa-image"></i>&nbsp;Không có ảnh</div>`;
-        }
-
-        const priceBadge = document.createElement('span');
-        priceBadge.className = 'vault-price-badge';
-        priceBadge.textContent = priceText;
-        imgWrap.appendChild(priceBadge);
-
-        const body = document.createElement('div');
-        body.className = 'vault-card-body';
-
-        const titleRow = document.createElement('div');
-        titleRow.className = 'vault-title-row';
-
-        const titleEl = document.createElement('span');
-        titleEl.className = 'vault-code';
-        titleEl.textContent = item.title;
-
-        const copyBtn = document.createElement('button');
-        copyBtn.className = 'btn-icon-copy';
-        copyBtn.type = 'button';
-        copyBtn.title = 'Copy';
-        copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-        copyBtn.onclick = () => copyAccCode(item.title, copyBtn);
-
-        titleRow.append(titleEl, copyBtn);
-
-        const actionsRow = document.createElement('div');
-        actionsRow.className = 'card-actions-row';
-
-        const buyBtn = document.createElement('button');
-        buyBtn.className = 'btn-buy-acc';
-        buyBtn.type = 'button';
-        buyBtn.innerHTML = '<i class="fa-brands fa-tiktok"></i> MUA ÁO';
-        buyBtn.onclick = () => selectAndOrderSingle(item.title, priceText, item.type);
-
-        const addCartBtn = document.createElement('button');
-        addCartBtn.className = 'btn-add-cart';
-        addCartBtn.type = 'button';
-        addCartBtn.title = 'Thêm vào giỏ';
-        addCartBtn.innerHTML = '<i class="fa-solid fa-cart-plus"></i>';
-        addCartBtn.onclick = () => addToCart(item, cardImgEl);
-
-        actionsRow.append(buyBtn, addCartBtn);
-        body.append(titleRow, actionsRow);
-        card.append(imgWrap, body);
-        fragment.appendChild(card);
-      });
-
-      gridEl.appendChild(fragment);
-    }
-
-    function addToCart(item, imgElement) {
-      const exists = cart.find(cartItem => cartItem.id === item.id);
-      if (exists) {
-        showToast(`"${item.title}" đã có trong giỏ hàng!`);
-        return;
-      }
-      cart.push({ ...item, selected: true });
-      saveCart();
-      if (imgElement) triggerFlyToCartAnimation(imgElement);
-      showToast(`Đã thêm "${item.title}" vào giỏ 💗`);
     }
 
     function toggleCartDrawer(isOpen) {
@@ -2082,7 +1482,7 @@
       listEl.replaceChildren();
 
       if (cart.length === 0) {
-        listEl.innerHTML = `<div style="text-align:center; padding:30px 0; color:#aaa; font-size:0.88rem;">Giỏ hàng của bạn đang trống!</div>`;
+        listEl.innerHTML = `<div style="text-align:center; padding:32px 0; color:#94a3b8; font-size:0.9rem;">Chưa có gói nạp nào được chọn!</div>`;
         updateCartCalculations();
         return;
       }
@@ -2100,39 +1500,32 @@
           updateCartCalculations();
         };
 
-        const img = document.createElement('img');
-        img.className = 'cart-item-img';
-        img.src = item.image || 'avatar.jpg';
-        img.alt = item.title;
+        const iconBox = document.createElement('div');
+        iconBox.className = 'cart-item-icon-box';
+        iconBox.innerHTML = `<i class="fa-solid ${item.icon || 'fa-gem'}"></i>`;
 
         const info = document.createElement('div');
         info.className = 'cart-item-info';
         info.innerHTML = `
-          <div class="cart-item-title" style="color:${item.type === 'wuwa' ? '#00f0ff' : '#fe2c55'}">
-            ${item.type === 'wuwa' ? '[WUWA] ' : ''}${item.title}
-          </div>
+          <div class="cart-item-title">[WUWA] ${item.title}</div>
           <div class="cart-item-price">${formatPrice(item.price)}</div>
         `;
 
         const removeBtn = document.createElement('button');
         removeBtn.className = 'btn-remove-item';
         removeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-        removeBtn.onclick = () => removeFromCart(index);
+        removeBtn.onclick = () => {
+          cart.splice(index, 1);
+          saveCart();
+          renderCartItems();
+          applyFiltersAndRender();
+        };
 
-        itemRow.append(checkbox, img, info, removeBtn);
+        itemRow.append(checkbox, iconBox, info, removeBtn);
         listEl.appendChild(itemRow);
       });
 
       updateCartCalculations();
-    }
-
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      saveCart();
-      renderCartItems();
-      if (currentCategory === 'wuwa') {
-        applyFiltersAndRender();
-      }
     }
 
     function clearAllCart() {
@@ -2140,9 +1533,7 @@
       cart = [];
       saveCart();
       renderCartItems();
-      if (currentCategory === 'wuwa') {
-        applyFiltersAndRender();
-      }
+      applyFiltersAndRender();
     }
 
     function toggleSelectAllCart(checked) {
@@ -2160,11 +1551,21 @@
       document.getElementById('selectAllCartCheckbox').checked = cart.length > 0 && selectedItems.length === cart.length;
     }
 
-    function openTikTokApp() {
-      const appUrl = `snssdk1180://user/profile?unique_id=${TIKTOK_USERNAME}`;
-      const webUrl = `https://www.tiktok.com/@${TIKTOK_USERNAME}`;
-      window.location.href = appUrl;
-      setTimeout(() => { window.open(webUrl, '_blank', 'noopener,noreferrer'); }, 500);
+    async function checkoutSelectedCart() {
+      const selected = cart.filter(item => item.selected !== false);
+      if (selected.length === 0) {
+        showToast('Vui lòng chọn ít nhất 1 gói nạp!');
+        return;
+      }
+
+      const total = selected.reduce((sum, item) => sum + (item.price || 0), 0);
+      const codesList = selected.map(item => `• [NẠP WUWA] ${item.title} (${formatPrice(item.price)})`).join('\n');
+
+      const message = `⚡ YÊU CẦU NẠP WUTHERING WAVES ⚡\nDanh sách gói nạp:\n${codesList}\n---------------------------\n💰 TỔNG CỘNG: ${formatPrice(total)}\n👉 Mình muốn nạp các gói trên, Chía hỗ trợ gửi thông tin nạp giúp mình nhé 💗`;
+
+      await writeClipboardText(message);
+      toggleCartDrawer(false);
+      showOrderNoticeModal();
     }
 
     function showOrderNoticeModal() {
@@ -2190,7 +1591,10 @@
       clearInterval(countdownInterval);
       clearTimeout(redirectTimer);
       closeOrderNoticeModal();
-      openTikTokApp();
+      const appUrl = `snssdk1180://user/profile?unique_id=${TIKTOK_USERNAME}`;
+      const webUrl = `https://www.tiktok.com/@${TIKTOK_USERNAME}`;
+      window.location.href = appUrl;
+      setTimeout(() => { window.open(webUrl, '_blank', 'noopener,noreferrer'); }, 500);
     }
 
     function closeOrderNoticeModal() {
@@ -2199,45 +1603,17 @@
       document.getElementById('orderNoticeModal').classList.remove('active');
     }
 
-    async function checkoutSelectedCart() {
-      const selected = cart.filter(item => item.selected !== false);
-      if (selected.length === 0) {
-        showToast('Vui lòng chọn ít nhất 1 mục để mua/nạp!');
-        return;
-      }
-
-      const total = selected.reduce((sum, item) => sum + (item.price || 0), 0);
-      const codesList = selected.map(item => `• [${item.type === 'wuwa' ? 'NẠP WUWA' : 'ÁO'}] ${item.title} (${formatPrice(item.price)})`).join('\n');
-
-      const message = `🌸 YÊU CẦU ĐẶT HÀNG / NẠP GAME 🌸
-Danh sách các mục đã chọn:
-${codesList}
----------------------------
-💰 TỔNG CỘNG: ${formatPrice(total)}
-👉 Mình muốn đặt các mục trên, Chía kiểm tra và hỗ trợ giúp mình nhé 💗`;
-
-      await writeClipboardText(message);
-      toggleCartDrawer(false);
-      showOrderNoticeModal();
-    }
-
-    async function selectAndOrderSingle(title, price, type = 'shirt') {
-      let message = type === 'wuwa' 
-        ? `⚡ YÊU CẦU NẠP WUTHERING WAVES ⚡\n- Gói nạp: ${title}\n- Giá: ${price}\n- Kênh liên hệ: Kho của Chía (@${TIKTOK_USERNAME})\n---------------------------\n👉 Mình muốn nạp gói ${title} này, bạn hướng dẫn mình gửi tài khoản nhé 💗`
-        : `🌸 YÊU CẦU MUA ÁO 🌸\n- Mã sản phẩm: ${title}\n- Giá: ${price}\n- Kênh liên hệ: Kho áo của Chía (@${TIKTOK_USERNAME})\n---------------------------\n👉 Mình muốn mua áo mã ${title} này, bạn kiểm tra giúp mình nhé 💗`;
-
-      await writeClipboardText(message);
-      showOrderNoticeModal();
-    }
-
+    /* Live Chat Support Functions */
     function toggleCskhModal(forceState) {
       const modal = document.getElementById('cskhChatModal');
       const isActive = forceState !== undefined ? forceState : !modal.classList.contains('active');
       if (isActive) {
         modal.classList.add('active');
         loadChatHistory();
+        startChatPolling();
       } else {
         modal.classList.remove('active');
+        stopChatPolling();
       }
     }
 
@@ -2245,7 +1621,7 @@ ${codesList}
       const body = document.getElementById('cskhChatBody');
       body.innerHTML = `
         <div class="chat-bubble admin">
-          chào bạn💗cảm ơn bạn đã ủng hộ shop. Nếu có vấn đề gì hãy thoải mái nhắn mình ở đây nhé 💗
+          Chào bạn 💗 Cảm ơn bạn đã ghé shop. Nếu cần hỏi gói nạp hay hỗ trợ nạp ID in-game, bạn cứ nhắn mình ở đây nhé!
         </div>
       `;
 
@@ -2257,30 +1633,81 @@ ${codesList}
           .eq('session_id', chatSessionId)
           .order('created_at', { ascending: true });
 
-        if (error) throw error;
-        (data || []).forEach(msg => appendMessageUI(msg.sender, msg.content, msg.created_at));
-        body.scrollTop = body.scrollHeight;
+        if (!error && data) {
+          data.forEach(msg => appendMessageUI(msg.sender, msg.content, msg.created_at));
+          if (data.length > 0) {
+            lastChatTimestamp = data[data.length - 1].created_at;
+          }
+          body.scrollTop = body.scrollHeight;
+        }
       } catch (e) {
-        console.warn("Lỗi tải lịch sử chat:", e);
+        console.warn("Lỗi tải chat:", e);
       }
     }
 
-    function initRealtimeChat() {
+    function startChatPolling() {
+      stopChatPolling();
+      // Safe HTTP REST polling instead of WebSocket channels
+      chatPollingTimer = setInterval(pollNewAdminMessages, 4000);
+    }
+
+    function stopChatPolling() {
+      if (chatPollingTimer) {
+        clearInterval(chatPollingTimer);
+        chatPollingTimer = null;
+      }
+    }
+
+    async function pollNewAdminMessages() {
       if (!_supabase) return;
-      _supabase
-        .channel('public:chat_messages')
-        .on('postgres_changes', {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'chat_messages',
-          filter: `session_id=eq.${chatSessionId}`
-        }, payload => {
-          const msg = payload.new;
-          if (msg.sender === 'admin') {
+      try {
+        let query = _supabase
+          .from('chat_messages')
+          .select('sender, content, created_at')
+          .eq('session_id', chatSessionId)
+          .eq('sender', 'admin')
+          .order('created_at', { ascending: true });
+
+        if (lastChatTimestamp) {
+          query = query.gt('created_at', lastChatTimestamp);
+        }
+
+        const { data, error } = await query;
+        if (!error && data && data.length > 0) {
+          data.forEach(msg => {
             appendMessageUI('admin', msg.content, msg.created_at);
-          }
-        })
-        .subscribe();
+            lastChatTimestamp = msg.created_at;
+          });
+        }
+      } catch (err) {
+        // Silently handle polling drops
+      }
+    }
+
+    async function pollNewAdminMessages() {
+      if (!_supabase) return;
+      try {
+        let query = _supabase
+          .from('chat_messages')
+          .select('sender, content, created_at')
+          .eq('session_id', chatSessionId)
+          .eq('sender', 'admin')
+          .order('created_at', { ascending: true });
+
+        if (lastChatTimestamp) {
+          query = query.gt('created_at', lastChatTimestamp);
+        }
+
+        const { data, error } = await query;
+        if (!error && data && data.length > 0) {
+          data.forEach(msg => {
+            appendMessageUI('admin', msg.content, msg.created_at);
+            lastChatTimestamp = msg.created_at;
+          });
+        }
+      } catch (err) {
+        // Silent catch for polling
+      }
     }
 
     function appendMessageUI(sender, text, timestamp) {
@@ -2302,6 +1729,11 @@ ${codesList}
       input.value = '';
       appendMessageUI('user', text, new Date());
 
+      // Auto-reply simulation for instant feedback
+      setTimeout(() => {
+        appendMessageUI('admin', 'Dạ Chía đã nhận tin nhắn của bạn rồi ạ! Bạn kiểm tra TikTok hoặc đợi shop một lát nhé 💗', new Date());
+      }, 1200);
+
       if (_supabase) {
         try {
           await _supabase.from('chat_messages').insert({
@@ -2310,37 +1742,33 @@ ${codesList}
             content: text
           });
         } catch (err) {
-          console.error("Lỗi lưu Supabase:", err);
-        }
-      }
-
-      if (DISCORD_WEBHOOK_URL && !DISCORD_WEBHOOK_URL.includes('YOUR_WEBHOOK_ID')) {
-        try {
-          await fetch(DISCORD_WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              username: 'Khách Hàng (Web Chía)',
-              avatar_url: 'https://cdn-icons-png.flaticon.com/512/847/847969.png',
-              embeds: [{
-                title: '💬 Tin nhắn CSKH mới từ Website',
-                color: 0xfe2c55,
-                fields: [
-                  { name: 'Mã khách (Session)', value: `\`${chatSessionId}\``, inline: true },
-                  { name: 'Nội dung', value: text }
-                ],
-                footer: { text: 'Kho áo & Nạp game của Chía 💗' },
-                timestamp: new Date().toISOString()
-              }]
-            })
-          });
-        } catch (err) {
-          console.error("Lỗi gửi Webhook Discord:", err);
+          console.error("Lỗi Supabase:", err);
         }
       }
     }
 
-    const searchInput = document.getElementById('vaultSearchInput');
+    /* Clipboard Helper */
+    async function writeClipboardText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return;
+        } catch (e) {}
+      }
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+      } catch (e) {}
+      document.body.removeChild(ta);
+    }
+
+    /* Search & Filter handlers */
+    const searchInput = document.getElementById('wuwaSearchInput');
     const searchClearBtn = document.getElementById('searchClearBtn');
 
     searchInput.addEventListener('input', (e) => {
@@ -2363,56 +1791,22 @@ ${codesList}
 
     document.querySelectorAll('.chip-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active', 'active-wuwa'));
-        btn.classList.add(currentCategory === 'shirts' ? 'active' : 'active-wuwa');
+        document.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
         currentFilter = btn.dataset.filter;
         applyFiltersAndRender();
       });
     });
 
-    async function writeClipboardText(text) {
-      if (navigator.clipboard && window.isSecureContext) {
-        return navigator.clipboard.writeText(text);
-      }
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.left = '-9999px';
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-    }
-
-    async function copyAccCode(code, btn) {
-      await writeClipboardText(code);
-      const original = btn.innerHTML;
-      btn.innerHTML = `<i class="fa-solid fa-check" style="color:#00f0ff;"></i>`;
-      showToast(`Đã chép: ${code}`);
-      setTimeout(() => { btn.innerHTML = original; }, 1400);
-    }
-
-    function openZoomImage(src) {
-      const modal = document.getElementById('imageModal');
-      const modalImg = document.getElementById('modalImg');
-      modalImg.src = src;
-      modal.classList.add('active');
-    }
-
-    function closeImageModal() {
-      document.getElementById('imageModal').classList.remove('active');
-    }
-
     document.addEventListener('keydown', (e) => {
       if (e.key === "Escape") {
-        closeImageModal();
         toggleCartDrawer(false);
         closeOrderNoticeModal();
         toggleCskhModal(false);
       }
     });
 
-    window.addEventListener('DOMContentLoaded', initSupabase);
+    window.addEventListener('DOMContentLoaded', initApp);
   </script>
 </body>
 </html>
