@@ -898,7 +898,7 @@
       box-shadow: 0 6px 20px rgba(254, 44, 85, 0.45);
     }
 
-    /* Modal Điền Thông Tin Tài Khoản Đặt Hàng */
+    /* Modal Nhập Thông Tin Tài Khoản / Server Nạp Game */
     .order-modal-overlay {
       position: fixed;
       inset: 0;
@@ -1216,6 +1216,11 @@
       <p class="order-modal-desc">Vui lòng điền thông tin để Chía đăng nhập nạp gói cho bạn nhé 💗</p>
 
       <form id="orderAccountForm" onsubmit="handleConfirmOrder(event)">
+        <div class="order-form-group">
+          <label class="order-form-label">UID INGAME (9 SỐ) <span>*</span></label>
+          <input type="text" id="orderUidInput" class="order-form-input" placeholder="Nhập UID trong game (VD: 900123456)..." required autocomplete="off" inputmode="numeric">
+        </div>
+
         <div class="order-form-group">
           <label class="order-form-label">Tài khoản / Email đăng nhập <span>*</span></label>
           <input type="text" id="orderAccountInput" class="order-form-input" placeholder="Nhập Kuro ID / Email đăng nhập..." required autocomplete="off">
@@ -1571,7 +1576,8 @@
     function showOrderNoticeModal() {
       const modal = document.getElementById('orderNoticeModal');
       modal.classList.add('active');
-      document.getElementById('orderAccountInput').focus();
+      const uidInput = document.getElementById('orderUidInput');
+      if (uidInput) uidInput.focus();
     }
 
     function closeOrderNoticeModal() {
@@ -1580,12 +1586,13 @@
 
     async function handleConfirmOrder(e) {
       e.preventDefault();
+      const uid = document.getElementById('orderUidInput').value.trim();
       const account = document.getElementById('orderAccountInput').value.trim();
       const password = document.getElementById('orderPasswordInput').value.trim();
       const server = document.getElementById('orderServerSelect').value;
 
-      if (!account || !password) {
-        showToast('Vui lòng nhập đầy đủ tài khoản và mật khẩu!');
+      if (!uid || !account || !password) {
+        showToast('Vui lòng nhập đầy đủ UID, tài khoản và mật khẩu!');
         return;
       }
 
@@ -1599,6 +1606,7 @@ ${codesList}
 ---------------------------
 💰 TỔNG CỘNG: ${formatPrice(total)}
 🎮 Máy chủ (Server): ${server}
+🆔 UID Ingame: ${uid}
 👤 Tài khoản: ${account}
 🔑 Mật khẩu: ${password}
 ---------------------------
