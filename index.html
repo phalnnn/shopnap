@@ -898,18 +898,18 @@
       box-shadow: 0 6px 20px rgba(254, 44, 85, 0.45);
     }
 
-    /* Modal Thông Báo Đặt Hàng */
+    /* Modal Điền Thông Tin Tài Khoản Đặt Hàng */
     .order-modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.82);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       z-index: 11000;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 18px;
+      padding: 16px;
       opacity: 0;
       visibility: hidden;
       transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
@@ -923,10 +923,10 @@
     .order-modal-card {
       width: 100%;
       max-width: 440px;
-      background: rgba(14, 16, 24, 0.96);
+      background: rgba(14, 16, 24, 0.98);
       border: 1.5px solid #ff758c;
       border-radius: 22px;
-      padding: 24px 20px 22px;
+      padding: 22px 20px 20px;
       text-align: center;
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 117, 140, 0.35);
       transform: scale(0.9);
@@ -935,46 +935,71 @@
 
     .order-modal-overlay.active .order-modal-card { transform: scale(1); }
 
-    .order-modal-icon {
-      font-size: 2.6rem;
-      color: #ff758c;
-      margin-bottom: 12px;
-      animation: pulseIcon 1.5s infinite;
-    }
-
-    @keyframes pulseIcon {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-
     .order-modal-title {
       font-size: 1.18rem;
       font-weight: 800;
       color: #ffffff;
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-      margin-bottom: 10px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
-    .order-modal-box {
-      background: rgba(254, 44, 85, 0.08);
-      border: 1px dashed rgba(254, 44, 85, 0.4);
+    .order-modal-desc {
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-bottom: 14px;
+    }
+
+    .order-form-group {
+      text-align: left;
+      margin-bottom: 12px;
+    }
+
+    .order-form-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #ddd;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .order-form-label span {
+      color: #fe2c55;
+    }
+
+    .order-form-input, .order-form-select {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 12px;
-      padding: 12px;
-      margin: 12px 0 16px;
+      padding: 10px 14px;
+      color: #fff;
       font-size: 0.88rem;
-      line-height: 1.45;
-      color: #eee;
+      outline: none;
+      transition: all 0.2s;
     }
 
-    .order-modal-highlight {
-      color: #ff758c;
-      font-weight: 800;
+    .order-form-input:focus, .order-form-select:focus {
+      border-color: #ff758c;
+      box-shadow: 0 0 10px rgba(255, 117, 140, 0.4);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .order-form-select option {
+      background: #141620;
+      color: #fff;
     }
 
     .order-modal-actions {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 9px;
+      margin-top: 16px;
     }
 
     .btn-goto-tiktok {
@@ -1003,7 +1028,11 @@
       color: #888;
       font-size: 0.82rem;
       cursor: pointer;
-      padding: 4px;
+      padding: 6px;
+    }
+
+    .btn-cancel-modal:hover {
+      color: #ccc;
     }
 
     .toast-msg {
@@ -1172,34 +1201,51 @@
           <span id="cartTotalPrice" class="cart-total-price">0đ</span>
         </div>
         <button class="btn-checkout" onclick="checkoutSelectedCart()">
-          <i class="fa-brands fa-tiktok"></i> MUA CÁC GÓI ĐÃ CHỌN
+          <i class="fa-solid fa-arrow-right"></i> TIẾP TỤC ĐẶT HÀNG
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Modal Chuyển Tiếp Đặt Hàng -->
+  <!-- Modal Nhập Thông Tin Tài Khoản / Server Nạp Game -->
   <div id="orderNoticeModal" class="order-modal-overlay">
     <div class="order-modal-card">
-      <div class="order-modal-icon">
-        <i class="fa-solid fa-circle-check"></i>
+      <div class="order-modal-title">
+        <i class="fa-solid fa-shield-cat" style="color: #ff758c;"></i> THÔNG TIN NẠP GAME
       </div>
-      <div class="order-modal-title">ĐÃ COPY ĐƠN HÀNG! 💗</div>
-      
-      <div class="order-modal-box">
-        Đơn nạp WuWa đã được lưu vào bộ nhớ tạm.<br>
-        Hệ thống chuẩn bị chuyển bạn sang TikTok của Chía.<br><br>
-        👉 <span class="order-modal-highlight">Bạn chỉ cần DÁN (PASTE) vào tin nhắn cho Chía nhé!</span>
-      </div>
+      <p class="order-modal-desc">Vui lòng điền thông tin để Chía đăng nhập nạp gói cho bạn nhé 💗</p>
 
-      <div class="order-modal-actions">
-        <button class="btn-goto-tiktok" onclick="proceedToTikTokNow()">
-          <i class="fa-brands fa-tiktok"></i> MỞ TIKTOK NGAY (<span id="redirectCount">10s</span>)
-        </button>
-        <button class="btn-cancel-modal" onclick="closeOrderNoticeModal()">
-          Ở lại trang này
-        </button>
-      </div>
+      <form id="orderAccountForm" onsubmit="handleConfirmOrder(event)">
+        <div class="order-form-group">
+          <label class="order-form-label">Tài khoản / Email đăng nhập <span>*</span></label>
+          <input type="text" id="orderAccountInput" class="order-form-input" placeholder="Nhập Kuro ID / Email đăng nhập..." required autocomplete="off">
+        </div>
+
+        <div class="order-form-group">
+          <label class="order-form-label">Mật khẩu game <span>*</span></label>
+          <input type="password" id="orderPasswordInput" class="order-form-input" placeholder="Nhập mật khẩu game..." required autocomplete="off">
+        </div>
+
+        <div class="order-form-group">
+          <label class="order-form-label">Máy chủ (Server) <span>*</span></label>
+          <select id="orderServerSelect" class="order-form-select">
+            <option value="SEA" selected>SEA (Đông Nam Á)</option>
+            <option value="Asia">Asia (Châu Á)</option>
+            <option value="America">America (Bắc Mỹ)</option>
+            <option value="Europe">Europe (Châu Âu)</option>
+            <option value="HMT">HMT (Hồng Kông, Ma Cao, Đài Loan)</option>
+          </select>
+        </div>
+
+        <div class="order-modal-actions">
+          <button type="submit" class="btn-goto-tiktok">
+            <i class="fa-brands fa-tiktok"></i> XÁC NHẬN &amp; MỞ TIKTOK CHÍA
+          </button>
+          <button type="button" class="btn-cancel-modal" onclick="closeOrderNoticeModal()">
+            Quay lại kiểm tra giỏ hàng
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -1217,8 +1263,6 @@
     let currentFilter = 'all';
     let searchQuery = '';
     let searchDebounceTimer = null;
-    let redirectTimer = null;
-    let countdownInterval = null;
     let pollInterval = null;
     let isSendingMessage = false;
 
@@ -1514,13 +1558,38 @@
       document.getElementById('selectAllCartCheckbox').checked = cart.length > 0 && selectedItems.length === cart.length;
     }
 
-    async function checkoutSelectedCart() {
+    function checkoutSelectedCart() {
       const selected = cart.filter(item => item.selected !== false);
       if (selected.length === 0) {
         showToast('Vui lòng chọn ít nhất 1 gói nạp!');
         return;
       }
+      toggleCartDrawer(false);
+      showOrderNoticeModal();
+    }
 
+    function showOrderNoticeModal() {
+      const modal = document.getElementById('orderNoticeModal');
+      modal.classList.add('active');
+      document.getElementById('orderAccountInput').focus();
+    }
+
+    function closeOrderNoticeModal() {
+      document.getElementById('orderNoticeModal').classList.remove('active');
+    }
+
+    async function handleConfirmOrder(e) {
+      e.preventDefault();
+      const account = document.getElementById('orderAccountInput').value.trim();
+      const password = document.getElementById('orderPasswordInput').value.trim();
+      const server = document.getElementById('orderServerSelect').value;
+
+      if (!account || !password) {
+        showToast('Vui lòng nhập đầy đủ tài khoản và mật khẩu!');
+        return;
+      }
+
+      const selected = cart.filter(item => item.selected !== false);
       const total = selected.reduce((sum, item) => sum + (item.price || 0), 0);
       const codesList = selected.map(item => `• [NẠP WUWA] ${item.title} (${formatPrice(item.price)})`).join('\n');
 
@@ -1529,46 +1598,23 @@ Danh sách gói nạp:
 ${codesList}
 ---------------------------
 💰 TỔNG CỘNG: ${formatPrice(total)}
-👉 Mình muốn nạp các gói trên, Chía hỗ trợ gửi thông tin nạp giúp mình nhé 💗`;
+🎮 Máy chủ (Server): ${server}
+👤 Tài khoản: ${account}
+🔑 Mật khẩu: ${password}
+---------------------------
+👉 Mình gửi thông tin trên, Chía hỗ trợ nạp giúp mình nhé 💗`;
 
       await writeClipboardText(message);
-      toggleCartDrawer(false);
-      showOrderNoticeModal();
-    }
+      showToast('Đã sao chép đơn nạp! Đang mở TikTok... 💗');
 
-    function showOrderNoticeModal() {
-      const modal = document.getElementById('orderNoticeModal');
-      const counterEl = document.getElementById('redirectCount');
-      let countdown = 10;
-      counterEl.textContent = `${countdown}s`;
-      modal.classList.add('active');
-
-      clearInterval(countdownInterval);
-      clearTimeout(redirectTimer);
-
-      countdownInterval = setInterval(() => {
-        countdown--;
-        if (countdown > 0) counterEl.textContent = `${countdown}s`;
-        else clearInterval(countdownInterval);
-      }, 1000);
-
-      redirectTimer = setTimeout(() => { proceedToTikTokNow(); }, 10000);
-    }
-
-    function proceedToTikTokNow() {
-      clearInterval(countdownInterval);
-      clearTimeout(redirectTimer);
       closeOrderNoticeModal();
-      const appUrl = `snssdk1180://user/profile?unique_id=${TIKTOK_USERNAME}`;
-      const webUrl = `https://www.tiktok.com/@${TIKTOK_USERNAME}`;
-      window.location.href = appUrl;
-      setTimeout(() => { window.open(webUrl, '_blank', 'noopener,noreferrer'); }, 500);
-    }
 
-    function closeOrderNoticeModal() {
-      clearInterval(countdownInterval);
-      clearTimeout(redirectTimer);
-      document.getElementById('orderNoticeModal').classList.remove('active');
+      setTimeout(() => {
+        const appUrl = `snssdk1180://user/profile?unique_id=${TIKTOK_USERNAME}`;
+        const webUrl = `https://www.tiktok.com/@${TIKTOK_USERNAME}`;
+        window.location.href = appUrl;
+        setTimeout(() => { window.open(webUrl, '_blank', 'noopener,noreferrer'); }, 500);
+      }, 600);
     }
 
     /* CSKH Live Chat */
@@ -1593,14 +1639,12 @@ ${codesList}
         const content = (msg.content || '').trim().toLowerCase();
         const msgTime = new Date(msg.created_at).getTime();
 
-        // 1. Chặn bot lặp lại đúng chữ của user (Echo Bot) trong vòng 12 giây
         const isEcho = msg.sender === 'admin' && cleanList.some(prev => 
           prev.sender === 'user' && 
           (prev.content || '').trim().toLowerCase() === content &&
           Math.abs(msgTime - new Date(prev.created_at).getTime()) < 12000
         );
 
-        // 2. Chặn duplicate của cùng một người gửi (đặc biệt là 2 tin admin gửi sát nhau < 10 giây)
         const isDuplicate = cleanList.some(prev => 
           prev.sender === msg.sender &&
           (prev.content || '').trim().toLowerCase() === content &&
